@@ -2,16 +2,30 @@
   box-sizing: border-box;
 }
 
-.App .some-website-container {
+.app .some-website-container {
   height: 3000px;
   padding-top: 100px;
 }
 
-.App .some-website-container .logo {
+.app .some-website-container .logo {
   background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Apple_logo_dark_grey.svg/1200px-Apple_logo_dark_grey.svg.png);
   width: 200px;
   height: 250px;
   background-repeat: no-repeat;
   background-size: 100%;
   margin: auto;
+}
+
+.chat-container .open-chat-button {
+  direction: rtl;
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+  background: blue;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 250px;
+  height: 50px;
 }
