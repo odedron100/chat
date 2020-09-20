@@ -9,6 +9,7 @@ class LoginForm extends Component {
 					<input id="email-input" className="input" type="text" placeholder="כתובת מייל" />
 					<input id="password-input" className="input" type="text" placeholder="סיסמא" />
 					<div id="login-button">התחבר</div>
+					<div id="register-button">או צור משתמש</div>
 				</div>
 			</div>
 		);
