@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 
+import LoginForm from './LoginForm';
+
 class AgentSystem extends Component {
 	render() {
 		return (
 			<div className="agent-system-container">
-				I'm agent system
+				<LoginForm />
 			</div>
 		);
 	}
