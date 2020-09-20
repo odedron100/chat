@@ -14,8 +14,8 @@ class Chat extends Component {
 
     return (
       <div className="chat-container">
-        <div className="open-chat-button" onClick={this.openChatWindow}> נציג צ׳אט זמין עבורך </div>
         {isChatWindowOpen && <div className="chat-window"></div>}
+        <div className="open-chat-button" onClick={this.openChatWindow}> נציג צ׳אט זמין עבורך </div>
       </div>
     );
   } 
