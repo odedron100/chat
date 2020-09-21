@@ -4,7 +4,7 @@ import {Link} from "react-router-dom";
 class LoginForm extends Component {
 	render() {
 		return (
-			<div className="login-form-container">
+			<div className="form-container">
 				<div className="title">התחבר באמצעות כתובת המייל שלך</div>
 				<div className="form">
 					<input className="email-input" className="input" type="text" placeholder="כתובת מייל" />

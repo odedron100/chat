@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class RegisterForm extends Component {
 	render() {
 		return (
-			<div className="register-form-container">
+			<div className="form-container">
 			<div className="title">צור משתמש חדש</div>
 				<div className="form">
 					<input className="name-input" className="input" type="text" placeholder="שם פרטי" />
