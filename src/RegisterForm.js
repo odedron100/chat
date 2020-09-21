@@ -14,7 +14,7 @@ class RegisterForm extends Component {
 					<input className="confirm-password-input" className="input" type="password" placeholder="אימות סיסמא" />
 					<div className="submit-button"> סיימתי, צור משתמש!</div>
 					<Link to="/agents/login">
-					<div id="register-button" className="secondary-button"> אני כבר רשום </div>
+					<div id="login-button" className="secondary-button"> אני כבר רשום </div>
 					</Link>
 				</div>
 			</div>
