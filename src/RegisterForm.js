@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Link} from "react-router-dom";
 
 class RegisterForm extends Component {
 	render() {
@@ -11,7 +12,10 @@ class RegisterForm extends Component {
 					<input className="email-input" className="input" type="text" placeholder="כתובת מייל" />
 					<input className="password-input" className="input" type="password" placeholder="סיסמא" />
 					<input className="confirm-password-input" className="input" type="password" placeholder="אימות סיסמא" />
-					<div className="create-user-button"> סיימתי, צור משתמש!</div>
+					<div className="submit-button"> סיימתי, צור משתמש!</div>
+					<Link to="/agents/login">
+					<div id="register-button" className="secondary-button"> אני כבר רשום </div>
+					</Link>
 				</div>
 			</div>
 		);

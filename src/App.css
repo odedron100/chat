@@ -71,7 +71,7 @@
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
 
-.form-container .form #login-button {
+.form-container .form .submit-button {
   background-color: #4d90fe;
   color: white;
   width: 70%;
@@ -83,7 +83,7 @@
   user-select: none;
 }
 
-.form-container .form #login-button:hover {
+.form-container .form .submit-button:hover {
   background-color: #5486da;
 }
 
@@ -101,21 +101,4 @@
   border: 1px solid #ccc;
   padding-right: 10px;
   font-size: 16px;
-}
-
-.form-container .create-user-button{
-  background-color: #4d90fe;
-  color: white;
-  width: 70%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  cursor: pointer;
-  user-select: none;
-  margin-top: 10px;
-}
-
-.form-container .create-user-button:hover{
-  background-color: #5486da;
 }
