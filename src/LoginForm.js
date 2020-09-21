@@ -7,8 +7,8 @@ class LoginForm extends Component {
 			<div className="login-form-container">
 				<div className="title">התחבר באמצעות כתובת המייל שלך</div>
 				<div className="form">
-					<input id="email-input" className="input" type="text" placeholder="כתובת מייל" />
-					<input id="password-input" className="input" type="text" placeholder="סיסמא" />
+					<input className="email-input" className="input" type="text" placeholder="כתובת מייל" />
+					<input className="password-input" className="input" type="text" placeholder="סיסמא" />
 					<div id="login-button">התחבר</div>
 
 					<Link to="/agents/register">
