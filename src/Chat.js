@@ -12,7 +12,7 @@ class Chat extends Component {
   }
 
   handleKeyDown = (e) => {
-  	if (e.keyCode === 13) {
+  	if (e.keyCode === 13 && e.target.value !== '') {
       this.addNewMessage(e.target.value);
       this.setState({valueInput: ''});
   	}
@@ -36,7 +36,7 @@ class Chat extends Component {
         {isChatWindowOpen && 
         	<div className="chat-window">
 				{messages.map((message, index) => {
-					return <div key={index}>{message}</div>
+					return <div className="message-chat" key={index}> me: {message}</div>
 				})}        	
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
         	</div>
