@@ -36,7 +36,7 @@ class Chat extends Component {
         {isChatWindowOpen && 
         	<div className="chat-window">
 				{messages.map((message, index) => {
-					return <div className="message-chat" key={index}> me: {message}</div>
+					return <div className="message-chat" key={index}> me: <span className="message-text">{message}</span></div>
 				})}        	
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
         	</div>
