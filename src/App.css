@@ -91,28 +91,37 @@
 }
 
 .chat-container .open-chat-button {
-  background: blue;
+  /*position: sticky;*/
+  background: #4169E1;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 100px;
   cursor: pointer;
   user-select: none;
 
 }
 
 .chat-container .chat-window {
-  height: 400px;
+  /*height: 350px;
   border: 1px solid #ccc;
+  overflow: scroll;*/
+}
+
+.chat-container .chat-window .messages-container {
+  height: 350px;
+  border: 1px solid #ccc;
+  overflow: scroll;
 }
 
 .chat-input{
-  position: fixed;
-  right: 10px;
-  width: 300px;
+  /*position: fixed;*/
+  /*right: 10px;*/
+  /*width: 300px;*/
   height: 30px;
-  bottom: 50px;
+  width: 100%;
+  /*bottom: 50px;*/
 }
 
 .message-chat{
@@ -124,7 +133,7 @@
 }
 
 .message-text{
-  background-color: #DCDCDC;
+  background-color: #ADD8E6;
   border: 1px solid black;
   border-radius: 25px;
   padding: 3px;
