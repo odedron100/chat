@@ -103,12 +103,6 @@
 
 }
 
-.chat-container .chat-window {
-  /*height: 350px;
-  border: 1px solid #ccc;
-  overflow: scroll;*/
-}
-
 .chat-container .chat-window .messages-container {
   height: 350px;
   border: 1px solid #ccc;
@@ -116,12 +110,8 @@
 }
 
 .chat-input{
-  /*position: fixed;*/
-  /*right: 10px;*/
-  /*width: 300px;*/
   height: 30px;
   width: 100%;
-  /*bottom: 50px;*/
 }
 
 .message-chat{

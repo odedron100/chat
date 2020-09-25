@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import ListAgent from './ListAgent';
 
 class AgentSystem extends Component {
 	render() {
@@ -15,6 +16,7 @@ class AgentSystem extends Component {
 				
 				<Route path={`${match.path}/login`} component={LoginForm}/>
 				<Route path={`${match.path}/register`} component={RegisterForm}/>
+				<Route path={`${match.path}/List`} component={ListAgent}/>
 			</div>
 		);
 	}
