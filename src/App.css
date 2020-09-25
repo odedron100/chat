@@ -36,6 +36,7 @@
  .title {
   margin-bottom: 20px;
   font-size: 20px;
+  text-align: center;
 }
 
 .form-container .form {
@@ -129,4 +130,9 @@
   padding: 3px;
   line-height: 1.7;
   margin-left: 10px;
+}
+
+.calls-History{
+  padding: 20px;
+  border: 1px solid black;
 }
