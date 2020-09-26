@@ -133,6 +133,17 @@
 }
 
 .calls-History{
-  padding: 20px;
+  width: 750px;
+  height: 50px;
+  margin: auto;
   border: 1px solid black;
+}
+
+.all-Item{
+  margin-left: 80px;
+  text-decoration: underline;
+}
+
+.item-Text{
+  margin-right: 10px;
 }

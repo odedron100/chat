@@ -17,7 +17,7 @@ class ListAgent extends Component {
 				<div className="title"> My list of calls history</div>	
 				<div className="form">
 					{listAgent.map((item, index) => {
-						return <div className="calls-History" key={index}>{listAgent}</div>
+						return <div className="calls-History" key={index} numberOfUser={item.numberOfUser} name={item.name} genus={item.genus} callTime={item.callTime}> <span className="all-Item" > מספר מנוי:<span className="item-Text">{item.numberOfUser}</span></span> <span className="all-Item">שם:<span className="item-Text">{item.name}</span></span> <span className="all-Item">מין:<span className="item-Text">{item.genus}</span></span> <span className="all-Item">אורך שיחה (דקות):<span className="item-Text">{item.callTime}</span></span></div>
 					})} 	
 				</div>
 			</div>
