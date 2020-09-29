@@ -137,10 +137,12 @@
   height: 50px;
   margin: auto;
   border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 }
 
 .all-Item{
-  margin-left: 80px;
   text-decoration: underline;
 }
 

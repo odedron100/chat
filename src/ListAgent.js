@@ -3,8 +3,8 @@ import {Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 
 const callsHistoryList = [
-	{user : '1', name:'אליאור', genus: 'זכר', callTime : '10'},
-	{user : '2', name:'שחר', genus: 'נקבה', callTime: '4'},
+	{userId : '1', name:'אליאור', gender: 'זכר', callTime : '10'},
+	{userId : '2', name:'שחר', gender: 'נקבה', callTime: '4'},
 ];
 
 class ListAgent extends Component {
@@ -15,6 +15,8 @@ class ListAgent extends Component {
 	render() {
 		const {listAgent} = this.state;
 		const {match} = this.props;
+  	console.log(this.state.listAgent[0].name);
+
 
 		return (
 			<div className="listAgent-container">
@@ -22,12 +24,15 @@ class ListAgent extends Component {
 				<div className="form">
 					{listAgent.map((item, index) => {
 						return(
-							<div className="calls-History" key={index} user={item.user} name={item.name} genus={item.genus} callTime={item.callTime} >
-							<Link to="/agents/User">
-						 	  <span className="all-Item"> מספר מנוי:<span className="item-Text">{item.user}</span></span>
-						 	  </Link>
+							<div className="calls-History" key={index}>
+						 	  <span className="all-Item">
+						 	    מספר מנוי:
+						 	    <Link to={`/agents/user/${item.userId}`}>
+						 	      <span className="item-Text">{item.userId}</span>
+						 	    </Link>
+						 	  </span>
 						  	  <span className="all-Item">שם:<span className="item-Text">{item.name}</span></span>
-						   	  <span className="all-Item">מין:<span className="item-Text">{item.genus}</span></span> 
+						   	  <span className="all-Item">מין:<span className="item-Text">{item.gender}</span></span> 
 						   	  <span className="all-Item">אורך שיחה (דקות):<span className="item-Text">{item.callTime}</span></span>
 						    </div>
 						)
