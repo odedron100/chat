@@ -2,27 +2,24 @@ import React, {Component} from 'react';
 import {Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 
-const callsHistoryList = [
-	{userId : '1', name:'אליאור', gender: 'זכר', callTime : '10'},
-	{userId : '2', name:'שחר', gender: 'נקבה', callTime: '4'},
-];
+import userDB from './userDB.json';
 
 class ListAgent extends Component {
 	state = {
-    	listAgent: callsHistoryList,
+    	listAgent: userDB.users,
   	}
 
 	render() {
 		const {listAgent} = this.state;
 		const {match} = this.props;
-  	console.log(this.state.listAgent[0].name);
-
 
 		return (
 			<div className="listAgent-container">
 				<div className="title"> My list of calls history</div>	
 				<div className="form">
-					{listAgent.map((item, index) => {
+					{Object.keys(listAgent).map((key, index) => {
+						const item = listAgent[key];
+
 						return(
 							<div className="calls-History" key={index}>
 						 	  <span className="all-Item">
