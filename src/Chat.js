@@ -38,9 +38,12 @@ class Chat extends Component {
     localStorage.setItem('messages',JSON.stringify(messages));
   }
 
+  // createClassName = () =>{
+  //   if (this.) {}
+  // }
+
   render() {
   	const {isChatWindowOpen, messages, valueInput} = this.state;
-
 
     return (
       <div className="chat-container">
@@ -48,7 +51,7 @@ class Chat extends Component {
         	<div className="chat-window">
         		<div className="messages-container">
 					{messages.map((message, index) => {
-						return <div className="message-chat" key={index}> {`${message.owner}:`} <span className="message-text" >{message.text}</span></div>
+						return <div  className={message.owner} key={index}> {`${message.owner}:`} <span className="message-text" >{message.text}</span></div>
 					})}       	
         		</div>
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>

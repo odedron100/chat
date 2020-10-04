@@ -19,7 +19,7 @@ class UserDetails extends Component {
 				<div>{`וקוראים לי ${currentUser.name}`}</div> 
 				<div>{`ואני ${currentUser.gender}`}</div>
 
-				<Chat owner="Oded" />
+				<Chat owner={`${currentUser.name}`} />
 			</div>
 		);
 	}

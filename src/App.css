@@ -115,14 +115,6 @@
   width: 100%;
 }
 
-.message-chat{
-  direction: ltr;
-  margin-top: 5px;
-  margin-left: 10px;
-  margin-right: 3px;
-  overflow-wrap: break-word;
-}
-
 .message-text{
   background-color: #ADD8E6;
   border: 1px solid black;
@@ -148,4 +140,28 @@
 
 .item-Text{
   margin-right: 10px;
+}
+
+.אליאור{
+  text-decoration: rtl;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 3px;
+  overflow-wrap: break-word;
+}
+
+.שחר{
+  text-decoration: rtl;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 3px;
+  overflow-wrap: break-word;
+}
+
+.Me{
+   direction: ltr;
+  margin-top: 5px;
+  margin-left: 10px;
+  margin-right: 3px;
+  overflow-wrap: break-word;
 }
