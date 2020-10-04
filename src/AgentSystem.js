@@ -10,7 +10,6 @@ class AgentSystem extends Component {
 	render() {
 		const {match} = this.props;
 
-				// <Route path={match.path + '/login'} component={LoginForm}/>
 		return (
 			<div className="agent-system-container">
 				<div>Agent System</div>

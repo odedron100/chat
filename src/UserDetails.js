@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Redirect} from "react-router-dom";
 
+import Chat from './Chat';
 import userDB from './userDB.json';
 
 class UserDetails extends Component {
@@ -17,6 +18,8 @@ class UserDetails extends Component {
 				<div>{`המזהה שלי הוא ${currentUser.userId}`}</div>
 				<div>{`וקוראים לי ${currentUser.name}`}</div> 
 				<div>{`ואני ${currentUser.gender}`}</div>
+
+				<Chat owner="Oded" />
 			</div>
 		);
 	}

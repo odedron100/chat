@@ -8,7 +8,7 @@ class SomeWebsite extends Component {
 			<div className="some-website-container">
 				<div className="logo"></div>
 
-        		<Chat />
+        		<Chat owner="Me" />
 			</div>
 		);
 	}

@@ -4,7 +4,7 @@ class Chat extends Component {
   state = {
   	isChatWindowOpen: false,
   	valueInput: '',
-  	messages: [],
+    messages: JSON.parse(localStorage.getItem('messages')) || []
   }
 
   openChatWindow = () => {
@@ -24,12 +24,23 @@ class Chat extends Component {
 
   addNewMessage = (message) => {
   	const {messages} = this.state;
-  	messages.push(message);
-  	this.setState({messages: messages});
+    const time = (new Date()).toISOString();
+
+    const newMessage = {
+     text: message,
+     time: time,
+     owner: this.props.owner
+    }
+   messages.push(newMessage);
+  
+   this.setState({messages: messages});
+
+    localStorage.setItem('messages',JSON.stringify(messages));
   }
 
   render() {
   	const {isChatWindowOpen, messages, valueInput} = this.state;
+
 
     return (
       <div className="chat-container">
@@ -37,8 +48,8 @@ class Chat extends Component {
         	<div className="chat-window">
         		<div className="messages-container">
 					{messages.map((message, index) => {
-						return <div className="message-chat" key={index}> me: <span className="message-text">{message}</span></div>
-					})}        	
+						return <div className="message-chat" key={index}> {`${message.owner}:`} <span className="message-text" >{message.text}</span></div>
+					})}       	
         		</div>
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
         	</div>
