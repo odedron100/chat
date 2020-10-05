@@ -51,7 +51,7 @@ class Chat extends Component {
         	<div className="chat-window">
         		<div className="messages-container">
 					{messages.map((message, index) => {
-						return <div  className={message.owner} key={index}> {`${message.owner}:`} <span className="message-text" >{message.text}</span></div>
+						return <div className="users-messages" className={message.owner} key={index}> {`${message.owner}:`} <span className="message-text" >{message.text}</span></div>
 					})}       	
         		</div>
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>

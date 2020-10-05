@@ -142,15 +142,7 @@
   margin-right: 10px;
 }
 
-.אליאור{
-  text-decoration: rtl;
-  margin-top: 5px;
-  margin-left: 10px;
-  margin-right: 3px;
-  overflow-wrap: break-word;
-}
-
-.שחר{
+.users-messages{
   text-decoration: rtl;
   margin-top: 5px;
   margin-left: 10px;
