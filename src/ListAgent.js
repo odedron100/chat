@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 
 import userDB from './userDB.json';
+import Chat from './Chat';
 
 class ListAgent extends Component {
 	state = {
@@ -12,20 +13,21 @@ class ListAgent extends Component {
 	render() {
 		const {listAgent} = this.state;
 		const {match} = this.props;
+		const users = JSON.parse(localStorage.getItem('usersName'));
 
 		return (
 			<div className="listAgent-container">
 				<div className="title"> My list of calls history</div>	
 				<div className="form">
-					{Object.keys(listAgent).map((key, index) => {
-						const item = listAgent[key];
+					{users.map((item, index) => {
+						const userId = index +1;
 
 						return(
 							<div className="calls-History" key={index}>
 						 	  <span className="all-Item">
 						 	    מספר מנוי:
-						 	    <Link to={`/agents/user/${item.userId}`}>
-						 	      <span className="item-Text">{item.userId}</span>
+						 	    <Link to={`/agents/user/${item.id}`}>
+						 	      <span className="item-Text">{item.id}</span>
 						 	    </Link>
 						 	  </span>
 						  	  <span className="all-Item">שם:<span className="item-Text">{item.name}</span></span>
@@ -34,7 +36,7 @@ class ListAgent extends Component {
 						    </div>
 						)
 						
-					})} 	
+					})}	
 				</div>
 			</div>
 		);
@@ -42,6 +44,3 @@ class ListAgent extends Component {
 }
 
 export default ListAgent;
-
-// <div className="list" id="number-Of-User">מספר משתמש</div>
-// <div className="list" id="call-Time">זמן השיחה (דקות)</div>

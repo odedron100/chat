@@ -121,6 +121,7 @@
   border-radius: 25px;
   padding: 3px;
   line-height: 1.7;
+  display: inline-block;
   margin-left: 10px;
 }
 
@@ -146,7 +147,7 @@
   text-decoration: rtl;
   margin-top: 5px;
   margin-left: 10px;
-  margin-right: 3px;
+  margin-right: 10px;
   overflow-wrap: break-word;
 }
 
