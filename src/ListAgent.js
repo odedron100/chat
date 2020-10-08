@@ -16,7 +16,7 @@ class ListAgent extends Component {
 		const users = JSON.parse(localStorage.getItem('usersName'));
 
 		return (
-			<div className="listAgent-container">
+			<div className="listUsers-container">
 				<div className="title"> My list of calls history</div>	
 				<div className="form">
 					{users.map((item, index) => {
@@ -26,7 +26,7 @@ class ListAgent extends Component {
 							<div className="calls-History" key={index}>
 						 	  <span className="all-Item">
 						 	    מספר מנוי:
-						 	    <Link to={`/agents/user/${item.id}`}>
+						 	    <Link to={`/users/user/${item.id}`}>
 						 	      <span className="item-Text">{item.id}</span>
 						 	    </Link>
 						 	  </span>

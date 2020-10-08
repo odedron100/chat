@@ -12,6 +12,7 @@ class Chat extends Component {
 
 
   openChatWindow = () => {
+    const {users} = this.state;
   	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen});
     if (this.props.owner === 'Me') {
       const {users} = this.state;
@@ -23,6 +24,7 @@ class Chat extends Component {
           name: userName,
           id: id, 
         }
+        localStorage.setItem('currentUser',newUser.name)
 
         users.push(newUser);
 
@@ -44,13 +46,15 @@ class Chat extends Component {
   }
 
   addNewMessage = (message) => {
+    const owner = localStorage.getItem('currentUser');
   	const {messages} = this.state;
+    const {users} = this.state;
     const time = (new Date()).toISOString();
 
     const newMessage = {
      text: message,
      time: time,
-     owner: this.props.owner
+     owner: owner,
     }
    messages.push(newMessage);
   

@@ -11,7 +11,7 @@ class UserDetails extends Component {
 		const currentUser = users.find(user => user.id === userId);
 
 		if (!currentUser) {
-			return <Redirect to="/agents/List" />;
+			return <Redirect to="/users/List" />;
 		}
 
 		return(

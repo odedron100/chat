@@ -7,6 +7,7 @@ import {
 
 import SomeWebsite from './SomeWebsite';
 import AgentSystem from './AgentSystem';
+import UsersSystem from './UsersSystem';
 import ListAgent from './ListAgent';
 import LoginForm from './LoginForm';
 import './App.css';
@@ -18,6 +19,8 @@ class App extends Component {
         <Router>
           <Switch>
             <Route path="/agents" component={AgentSystem}>
+            </Route>
+            <Route path="/users" component={UsersSystem}>
             </Route>
             <Route path="/" component={SomeWebsite}>
             </Route>
