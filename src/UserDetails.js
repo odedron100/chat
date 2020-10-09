@@ -3,12 +3,14 @@ import {Redirect} from "react-router-dom";
 
 import Chat from './Chat';
 import userDB from './userDB.json';
+import DBManager from './DBManager';
 
 class UserDetails extends Component {
 	render() {
 		const userId = this.props.match.params.id;
-		const users = JSON.parse(localStorage.getItem('usersName'));
-		const currentUser = users.find(user => user.id === userId);
+		const users = DBManager.getUsers();
+		// const users = JSON.parse(localStorage.getItem('usersName'));
+		const currentUser = DBManager.getUsers();
 
 		if (!currentUser) {
 			return <Redirect to="/users/List" />;

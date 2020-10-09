@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 
 import ListAgent from './ListAgent';
+import DBManager from './DBManager';
 
 class Chat extends Component {
   state = {
   	isChatWindowOpen: false,
   	valueInput: '',
-    messages: JSON.parse(localStorage.getItem('messages')) || [],
-    users:JSON.parse(localStorage.getItem('usersName')) || [],
+    messages: DBManager.getMessages(),
+    // messages: JSON.parse(localStorage.getItem('messages')) || [],
+    users: DBManager.getUsers(),
   }
 
 
@@ -24,13 +26,15 @@ class Chat extends Component {
           name: userName,
           id: id, 
         }
-        localStorage.setItem('currentUser',newUser.name)
+        DBManager.setCurrentUser(newUser.name);
+        // localStorage.setItem('currentUser',newUser.name)
 
         users.push(newUser);
 
         this.setState({users: users});
       }  
-      localStorage.setItem('usersName',JSON.stringify(users));
+      DBManager.setUsers(users);
+      // localStorage.setItem('usersName',JSON.stringify(users));
     }  
   }
 
@@ -46,7 +50,8 @@ class Chat extends Component {
   }
 
   addNewMessage = (message) => {
-    const owner = localStorage.getItem('currentUser');
+    const owner = DBManager.getCurrentUser();
+    // const owner = localStorage.getItem('currentUser');
   	const {messages} = this.state;
     const {users} = this.state;
     const time = (new Date()).toISOString();
@@ -60,7 +65,8 @@ class Chat extends Component {
   
    this.setState({messages: messages});
 
-    localStorage.setItem('messages',JSON.stringify(messages));
+    DBManager.setMessages(messages);
+    // localStorage.setItem('messages',JSON.stringify(messages));
   }
 
 

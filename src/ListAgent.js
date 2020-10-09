@@ -4,16 +4,18 @@ import {Link} from "react-router-dom";
 
 import userDB from './userDB.json';
 import Chat from './Chat';
+import DBManager from './DBManager';
 
 class ListAgent extends Component {
 	state = {
-    	listAgent: userDB.users,
+    	listAgent: DBManager.getAgents(),
   	}
 
 	render() {
 		const {listAgent} = this.state;
 		const {match} = this.props;
-		const users = JSON.parse(localStorage.getItem('usersName'));
+		// const users = JSON.parse(localStorage.getItem('usersName'));
+		const users = DBManager.getUsers();
 
 		return (
 			<div className="listUsers-container">
