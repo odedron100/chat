@@ -1,9 +1,6 @@
 import React, {Component} from 'react';
-import {Route} from "react-router-dom";
 import {Link} from "react-router-dom";
 
-import userDB from './userDB.json';
-import Chat from './Chat';
 import DBManager from './DBManager';
 
 class ListAgent extends Component {
@@ -12,8 +9,6 @@ class ListAgent extends Component {
   	}
 
 	render() {
-		const {listAgent} = this.state;
-		const {match} = this.props;
 		// const users = JSON.parse(localStorage.getItem('usersName'));
 		const users = DBManager.getUsers();
 
@@ -22,8 +17,6 @@ class ListAgent extends Component {
 				<div className="title"> My list of calls history</div>	
 				<div className="form">
 					{users.map((item, index) => {
-						const userId = index +1;
-
 						return(
 							<div className="calls-History" key={index}>
 						 	  <span className="all-Item">

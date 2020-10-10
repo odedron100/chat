@@ -8,8 +8,6 @@ import {
 import SomeWebsite from './SomeWebsite';
 import AgentSystem from './AgentSystem';
 import UsersSystem from './UsersSystem';
-import ListAgent from './ListAgent';
-import LoginForm from './LoginForm';
 import './App.css';
 
 class App extends Component {

@@ -25,7 +25,7 @@ class DBManager {
 	}
 
 	static setUsers = (somethingToWrite) => {
-		const usersString = DBManager.setInCollection(USERS_COLLECTION_NAME, somethingToWrite);
+		DBManager.setInCollection(USERS_COLLECTION_NAME, somethingToWrite);
 	}
 
 	static getAgents = () => {
@@ -33,7 +33,7 @@ class DBManager {
 	}
 
 	static setAgents = (somethingToWrite) => {
-		const usersString = DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
+		DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
 	}
 
 	static getMessages = () => {
@@ -41,7 +41,7 @@ class DBManager {
 	}
 
 	static setMessages = (somethingToWrite) => {
-		const messagesString = DBManager.setInCollection(MESSAGES_COLLECTION_NAME, somethingToWrite);
+		DBManager.setInCollection(MESSAGES_COLLECTION_NAME, somethingToWrite);
 	}
 
 	static getCurrentUser = () => {

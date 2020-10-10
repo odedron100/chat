@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import ListAgent from './ListAgent';
 import DBManager from './DBManager';
 
 class Chat extends Component {
@@ -17,7 +16,6 @@ class Chat extends Component {
     const {users} = this.state;
   	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen});
     if (this.props.owner === 'Me') {
-      const {users} = this.state;
       if (!this.state.isChatWindowOpen) {
         const userName = prompt("Please enter your name");
         const id = (new Date()).toISOString();
@@ -53,7 +51,6 @@ class Chat extends Component {
     const owner = DBManager.getCurrentUser();
     // const owner = localStorage.getItem('currentUser');
   	const {messages} = this.state;
-    const {users} = this.state;
     const time = (new Date()).toISOString();
 
     const newMessage = {
