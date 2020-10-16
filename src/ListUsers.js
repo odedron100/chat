@@ -3,10 +3,7 @@ import {Link} from "react-router-dom";
 
 import DBManager from './DBManager';
 
-class ListAgent extends Component {
-	state = {
-    	listAgent: DBManager.getAgents(),
-  	}
+class ListUsers extends Component {
 
 	render() {
 		// const users = JSON.parse(localStorage.getItem('usersName'));
@@ -38,4 +35,4 @@ class ListAgent extends Component {
 	}
 }
 
-export default ListAgent;
+export default ListUsers;

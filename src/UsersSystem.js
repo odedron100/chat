@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Route} from "react-router-dom";
 
-import ListAgent from './ListAgent';
+import ListUsers from './ListUsers';
 import User from './User';
 
 class UsersSystem extends Component {
@@ -11,7 +11,7 @@ class UsersSystem extends Component {
 		return (
 			<div className="users-system-container">
 				<div>Users System</div>	
-				<Route path={`${match.path}/List`} component={ListAgent}/>
+				<Route path={`${match.path}/List`} component={ListUsers}/>
 				<Route path={`${match.path}/User`} component={User}/>
 			</div>
 		);
