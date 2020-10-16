@@ -6,16 +6,18 @@ class Chat extends Component {
   state = {
   	isChatWindowOpen: false,
   	valueInput: '',
-    messages: DBManager.getMessages(),
+    messages: [],
     // messages: JSON.parse(localStorage.getItem('messages')) || [],
     // users: [],
   }
 
-  // componentDidMount() {
-  //   DBManager.getUsers().then((users) => {
-  //     this.setState({users});
-  //   });
-  // }
+  componentDidMount() {
+    DBManager.getMessages().then((messages) => {
+      this.setState({messages: messages || []});
+    });
+  }
+
+
 
 
   toggleChatWindow = () => {
@@ -64,7 +66,7 @@ class Chat extends Component {
      text: message,
      time: time,
      owner: owner,
-    }
+    } 
    messages.push(newMessage);
   
    this.setState({messages: messages});

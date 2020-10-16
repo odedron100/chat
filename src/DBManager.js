@@ -67,12 +67,10 @@ class DBManager {
 
 	static setUsers = (users) => {
 		// DBManager.setInCollection(USERS_COLLECTION_NAME, users);
-		console.log('users', users);
 
 		database.ref(USERS_COLLECTION_NAME).set(users).then(() => {
-			console.log('completed');
+
 		});
-		console.log('waiting');
 
 	}
 
@@ -96,11 +94,17 @@ class DBManager {
 	}
 
 	static getMessages = () => {
-		return DBManager.getFromCollection(MESSAGES_COLLECTION_NAME);
+		// return DBManager.getFromCollection(MESSAGES_COLLECTION_NAME);
+		const promise = database.ref(MESSAGES_COLLECTION_NAME).once('value').then((snap) => {
+			return snap.val();
+		})
+
+		return promise;
 	}
 
-	static setMessages = (somethingToWrite) => {
-		DBManager.setInCollection(MESSAGES_COLLECTION_NAME, somethingToWrite);
+	static setMessages = (messages) => {
+		// DBManager.setInCollection(MESSAGES_COLLECTION_NAME, somethingToWrite);
+		database.ref(MESSAGES_COLLECTION_NAME).set(messages);
 	}
 
 	static getCurrentUser = () => {
