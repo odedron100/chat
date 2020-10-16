@@ -1,4 +1,25 @@
-const USERS_COLLECTION_NAME = 'usersName';
+import firebase from 'firebase';
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBEbDR2aZ7KnkdbY0qEmc8essiDqi2nBjw",
+    authDomain: "chat-9b1a6.firebaseapp.com",
+    databaseURL: "https://chat-9b1a6.firebaseio.com",
+    projectId: "chat-9b1a6",
+    storageBucket: "chat-9b1a6.appspot.com",
+    messagingSenderId: "413541985347",
+    appId: "1:413541985347:web:12063ffba5ceb23976f8f6",
+    measurementId: "G-6TQGQDZH0M"
+};
+
+console.log('firebase', firebase);
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+
+const database = firebase.database();
+
+const USERS_COLLECTION_NAME = 'users';
 const AGENTS_COLLECTION_NAME = 'agents';
 const MESSAGES_COLLECTION_NAME = 'messages';
 const CURRENT_USER = 'currentUser';
@@ -12,20 +33,58 @@ class DBManager {
 		localStorage.setItem(itemName, JSON.stringify(newItem));
 	}
 
-	static getFromCollection = (collectionName) => {
-		return JSON.parse(localStorage.getItem(collectionName)) || [];
-	}
+	// static getFromCollection = (collectionName) => {
+	// 	return JSON.parse(localStorage.getItem(collectionName)) || [];
+	// }
 
-	static setInCollection = (collectionName, somethingToWrite) => {
-		localStorage.setItem(collectionName, JSON.stringify(somethingToWrite));
-	}
+	// static setInCollection = (collectionName, somethingToWrite) => {
+	// 	localStorage.setItem(collectionName, JSON.stringify(somethingToWrite));
+	// }
 
 	static getUsers = () => {
-		return DBManager.getFromCollection(USERS_COLLECTION_NAME);
+		// return DBManager.getFromCollection(USERS_COLLECTION_NAME);
+		
+		const promise = database.ref(USERS_COLLECTION_NAME).once('value').then((snap) => {
+			return snap.val();
+		})
+
+		return promise;
 	}
 
-	static setUsers = (somethingToWrite) => {
-		DBManager.setInCollection(USERS_COLLECTION_NAME, somethingToWrite);
+	static getUser = (id) => {
+		const promise = database.ref(`${USERS_COLLECTION_NAME}/${id}`).once('value').then((snap) => {
+			const user = snap.val();
+
+			if (!user) {
+				throw "User not found!";
+			}
+
+			return {...user, id};
+		});
+
+		return promise;
+	}
+
+	static setUsers = (users) => {
+		// DBManager.setInCollection(USERS_COLLECTION_NAME, users);
+		console.log('users', users);
+
+		database.ref(USERS_COLLECTION_NAME).set(users).then(() => {
+			console.log('completed');
+		});
+		console.log('waiting');
+
+	}
+
+	static createNewUser = (user) => {
+		// DBManager.setInCollection(USERS_COLLECTION_NAME, users);
+		// console.log('users', users);
+
+		database.ref(USERS_COLLECTION_NAME).push(user).then(() => {
+			console.log('completed');
+		});
+		// console.log('waiting');
+
 	}
 
 	static getAgents = () => {

@@ -8,32 +8,39 @@ class Chat extends Component {
   	valueInput: '',
     messages: DBManager.getMessages(),
     // messages: JSON.parse(localStorage.getItem('messages')) || [],
-    users: DBManager.getUsers(),
+    // users: [],
   }
 
+  // componentDidMount() {
+  //   DBManager.getUsers().then((users) => {
+  //     this.setState({users});
+  //   });
+  // }
 
-  openChatWindow = () => {
-    const {users} = this.state;
+
+  toggleChatWindow = () => {
+    // const {users} = this.state;
+    // console.log('users', users);
   	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen});
-    if (this.props.owner === 'Me') {
-      if (!this.state.isChatWindowOpen) {
-        const userName = prompt("Please enter your name");
-        const id = (new Date()).toISOString();
-      
-        const newUser = {
-          name: userName,
-          id: id, 
-        }
-        DBManager.setCurrentUser(newUser.name);
-        // localStorage.setItem('currentUser',newUser.name)
+    if (!this.state.isChatWindowOpen && !this.props.owner) {
+      const userName = prompt("Please enter your name");
+      this.setState({owner: userName});
+      // const id = (new Date()).toISOString();
+    
+      const newUser = {
+        name: userName,
+        // id: id, 
+      }
+      this.props.updateCurrentUser(userName);
 
-        users.push(newUser);
+      // users.push(newUser);
 
-        this.setState({users: users});
-      }  
-      DBManager.setUsers(users);
-      // localStorage.setItem('usersName',JSON.stringify(users));
-    }  
+      // this.setState({users: users});
+      // DBManager.setUsers(users);
+      DBManager.createNewUser(newUser);
+    } else {
+      this.setState({owner: this.props.owner});
+    } 
   }
 
   handleKeyDown = (e) => {
@@ -48,7 +55,7 @@ class Chat extends Component {
   }
 
   addNewMessage = (message) => {
-    const owner = DBManager.getCurrentUser();
+    const {owner} = this.state;
     // const owner = localStorage.getItem('currentUser');
   	const {messages} = this.state;
     const time = (new Date()).toISOString();
@@ -82,7 +89,7 @@ class Chat extends Component {
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
         	</div>
         }
-        <div className="open-chat-button" onClick={this.openChatWindow}> נציג צ׳אט זמין עבורך </div>
+        <div className="open-chat-button" onClick={this.toggleChatWindow}> נציג צ׳אט זמין עבורך </div>
       </div>
     );
   } 

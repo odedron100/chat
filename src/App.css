@@ -158,3 +158,20 @@
   margin-right: 3px;
   overflow-wrap: break-word;
 }
+
+.loading {
+  animation: loading 0.75s ease-in-out infinite;
+  text-align: center;
+}
+
+@keyframes loading {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
