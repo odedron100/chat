@@ -8,28 +8,36 @@ class Chat extends Component {
   	valueInput: '',
     messages: DBManager.getMessages(),
     // messages: JSON.parse(localStorage.getItem('messages')) || [],
-    users: DBManager.getUsers(),
+    // users: [],
   }
+
+  // componentDidMount() {
+  //   DBManager.getUsers().then((users) => {
+  //     this.setState({users});
+  //   });
+  // }
 
 
   toggleChatWindow = () => {
-    const {users} = this.state;
+    // const {users} = this.state;
+    // console.log('users', users);
   	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen});
     if (!this.state.isChatWindowOpen && !this.props.owner) {
       const userName = prompt("Please enter your name");
       this.setState({owner: userName});
-      const id = (new Date()).toISOString();
+      // const id = (new Date()).toISOString();
     
       const newUser = {
         name: userName,
-        id: id, 
+        // id: id, 
       }
       this.props.updateCurrentUser(userName);
 
-      users.push(newUser);
+      // users.push(newUser);
 
-      this.setState({users: users});
-      DBManager.setUsers(users);
+      // this.setState({users: users});
+      // DBManager.setUsers(users);
+      DBManager.createNewUser(newUser);
     } else {
       this.setState({owner: this.props.owner});
     } 
