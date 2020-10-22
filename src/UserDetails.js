@@ -56,7 +56,7 @@ class UserDetails extends Component {
 						<div>{`המזהה שלי הוא ${currentUser.id}`}</div>
 						<div>{`וקוראים לי ${currentUser.name}`}</div> 
 	
-						<Chat owner={'Me'} />
+						<Chat owner={currentUser} isAgent={true} />
 					</div>
 				}
 					

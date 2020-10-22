@@ -78,9 +78,13 @@ class DBManager {
 		// DBManager.setInCollection(USERS_COLLECTION_NAME, users);
 		// console.log('users', users);
 
-		database.ref(USERS_COLLECTION_NAME).push(user).then(() => {
-			console.log('completed');
+		return database.ref(USERS_COLLECTION_NAME).push(user).then((snap) => {
+			return {
+				...user,
+				id: snap.key
+			};
 		});
+
 		// console.log('waiting');
 
 	}
@@ -93,18 +97,17 @@ class DBManager {
 		DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
 	}
 
-	static getMessages = () => {
-		// return DBManager.getFromCollection(MESSAGES_COLLECTION_NAME);
-		const promise = database.ref(MESSAGES_COLLECTION_NAME).once('value').then((snap) => {
+	static getMessages = (userId) => {
+		const promise = database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).once('value').then((snap) => {
 			return snap.val();
 		})
 
 		return promise;
 	}
 
-	static setMessages = (messages) => {
-		// DBManager.setInCollection(MESSAGES_COLLECTION_NAME, somethingToWrite);
-		database.ref(MESSAGES_COLLECTION_NAME).set(messages);
+	static setMessages = (userId, messages) => {
+		// database.ref(MESSAGES_COLLECTION_NAME).set(messages);
+		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).set(messages);
 	}
 
 	static getCurrentUser = () => {

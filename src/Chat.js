@@ -12,9 +12,11 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    DBManager.getMessages().then((messages) => {
-      this.setState({messages: messages || []});
-    });
+    if (this.props.owner) {
+      DBManager.getMessages(this.props.owner.id).then((messages) => {
+        this.setState({messages: messages || []});
+      });
+    }
   }
 
 
@@ -26,20 +28,23 @@ class Chat extends Component {
   	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen});
     if (!this.state.isChatWindowOpen && !this.props.owner) {
       const userName = prompt("Please enter your name");
-      this.setState({owner: userName});
+      // this.setState({owner: userName});
       // const id = (new Date()).toISOString();
     
       const newUser = {
         name: userName,
         // id: id, 
       }
-      this.props.updateCurrentUser(userName);
+      // this.props.updateCurrentUser(userName);
 
       // users.push(newUser);
 
       // this.setState({users: users});
       // DBManager.setUsers(users);
-      DBManager.createNewUser(newUser);
+      DBManager.createNewUser(newUser).then(user => {
+        this.props.updateCurrentUser(user);
+        this.setState({owner: user});
+      });
     } else {
       this.setState({owner: this.props.owner});
     } 
@@ -62,16 +67,26 @@ class Chat extends Component {
   	const {messages} = this.state;
     const time = (new Date()).toISOString();
 
+    let messageOwner;
+
+    if (this.props.isAgent) {
+      messageOwner = {
+        name: 'Agent'
+      }
+    } else {
+      messageOwner = owner;
+    }
+
     const newMessage = {
      text: message,
      time: time,
-     owner: owner,
+     owner: messageOwner,
     } 
    messages.push(newMessage);
   
    this.setState({messages: messages});
 
-    DBManager.setMessages(messages);
+    DBManager.setMessages(owner.id, messages);
     // localStorage.setItem('messages',JSON.stringify(messages));
   }
 
@@ -85,7 +100,7 @@ class Chat extends Component {
         	<div className="chat-window">
         		<div className="messages-container">
 					{messages.map((message, index) => {
-						return <div className={`users-messages ${message.owner}`} key={index}> <div>{`${message.owner}:`}</div> <div className="message-text" >{message.text}</div></div>
+						return <div className={`users-messages ${message.owner.name}`} key={index}> <div>{`${message.owner.name}:`}</div> <div className="message-text" >{message.text}</div></div>
 					})}       	
         		</div>
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
