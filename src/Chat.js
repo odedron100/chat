@@ -93,8 +93,6 @@ class Chat extends Component {
 
   render() {
   	const {isChatWindowOpen, messages, valueInput} = this.state;
-    const textClassName = 'message-text ' + (this.props.isAgent && 'message-text-Agent');
-
 
     return (
       <div className="chat-container">
@@ -102,6 +100,10 @@ class Chat extends Component {
         	<div className="chat-window">
         		<div className="messages-container">
 					{messages.map((message, index) => {
+            let textClassName = 'message-text ';
+            const isAgentMessage = !message.owner.id;
+            textClassName = textClassName + (isAgentMessage && 'message-text-Agent');
+
 						return <div className={`users-messages ${message.owner.name}`} key={index}> <div>{`${message.owner.name}:`}</div> <div className={textClassName} >{message.text}</div></div>
 					})}       	
         		</div>
