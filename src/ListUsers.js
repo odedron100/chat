@@ -21,23 +21,18 @@ class ListUsers extends Component {
 	}
 
 	 handleChange = (e) => {
-	 	const {users,valueInput} = this.state;
 		this.setState({valueInput: e.target.value});
 
 		const filteredUsersKeysArray = Object.keys(this.originalUsersObject).filter((key, index) => {
 			const item = this.originalUsersObject[key];
 
-			if (item.name.toLowerCase().includes(e.target.value.toLowerCase())) {
-				return item;
-			}
+			return item.name.toLowerCase().includes(e.target.value.toLowerCase());
 		});
 
 
 		const filteredUsersAsObject = {};
 
-		// console.log('filteredUsersKeysArray', filteredUsersKeysArray);
 		filteredUsersKeysArray.forEach(currentKey => {
-			// console.log('currentKey', currentKey);
 			const item = this.originalUsersObject[currentKey];
 			filteredUsersAsObject[currentKey] = item;
 		});
@@ -46,10 +41,8 @@ class ListUsers extends Component {
   }
 
 	render() {
-		// const users = JSON.parse(localStorage.getItem('usersName'));
-		// const users = DBManager.getUsers();
-		// console.log('users', users);
-		const {users, isLoading,valueInput,writeInValue} = this.state;
+
+		const {users, isLoading,valueInput} = this.state;
 
 		return (
 			<div className="listUsers-container">

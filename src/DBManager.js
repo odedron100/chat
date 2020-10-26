@@ -11,9 +11,6 @@ const firebaseConfig = {
     measurementId: "G-6TQGQDZH0M"
 };
 
-console.log('firebase', firebase);
-
-// Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
@@ -33,21 +30,11 @@ class DBManager {
 		localStorage.setItem(itemName, JSON.stringify(newItem));
 	}
 
-	// static getFromCollection = (collectionName) => {
-	// 	return JSON.parse(localStorage.getItem(collectionName)) || [];
-	// }
 
-	// static setInCollection = (collectionName, somethingToWrite) => {
-	// 	localStorage.setItem(collectionName, JSON.stringify(somethingToWrite));
-	// }
-
-	static getUsers = () => {
-		// return DBManager.getFromCollection(USERS_COLLECTION_NAME);
-		
+	static getUsers = () => {	
 		const promise = database.ref(USERS_COLLECTION_NAME).once('value').then((snap) => {
 			return snap.val();
 		})
-
 		return promise;
 	}
 
@@ -56,9 +43,8 @@ class DBManager {
 			const user = snap.val();
 
 			if (!user) {
-				throw "User not found!";
+				throw new Error("User not found!");
 			}
-
 			return {...user, id};
 		});
 
@@ -66,18 +52,11 @@ class DBManager {
 	}
 
 	static setUsers = (users) => {
-		// DBManager.setInCollection(USERS_COLLECTION_NAME, users);
-
 		database.ref(USERS_COLLECTION_NAME).set(users).then(() => {
-
 		});
-
 	}
 
-	static createNewUser = (user) => {
-		// DBManager.setInCollection(USERS_COLLECTION_NAME, users);
-		// console.log('users', users);
-
+	static createNewUser = (user) => {;
 		return database.ref(USERS_COLLECTION_NAME).push(user).then((snap) => {
 			return {
 				...user,
@@ -85,7 +64,6 @@ class DBManager {
 			};
 		});
 
-		// console.log('waiting');
 
 	}
 
@@ -97,16 +75,13 @@ class DBManager {
 		DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
 	}
 
-	static getMessages = (userId) => {
-		const promise = database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).once('value').then((snap) => {
-			return snap.val();
-		})
-
-		return promise;
+	static getMessages = (userId, onNewMessageAdded) => {
+		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).on('value', (snap) => {
+			onNewMessageAdded(snap.val());
+		});
 	}
 
 	static setMessages = (userId, messages) => {
-		// database.ref(MESSAGES_COLLECTION_NAME).set(messages);
 		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).set(messages);
 	}
 

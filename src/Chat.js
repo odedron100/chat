@@ -7,15 +7,15 @@ class Chat extends Component {
   	isChatWindowOpen: false,
   	valueInput: '',
     messages: [],
-    // messages: JSON.parse(localStorage.getItem('messages')) || [],
-    // users: [],
   }
 
   componentDidMount() {
     if (this.props.owner) {
-      DBManager.getMessages(this.props.owner.id).then((messages) => {
-        this.setState({messages: messages || []}, () => {
-          this.scrollChatToEnd();
+      DBManager.getMessages(this.props.owner.id, (messagesFromServer) => {
+        const isWithAnimation = this.state.messages.length !== 0;
+
+        this.setState({messages: messagesFromServer || []}, () => {
+          this.scrollChatToEnd(isWithAnimation);
         });
       });
     }
@@ -33,8 +33,6 @@ class Chat extends Component {
     });
     if (!this.state.isChatWindowOpen && !this.props.owner) {
       const userName = prompt("Please enter your name");
-      // this.setState({owner: userName});
-      // const id = (new Date()).toISOString();
     
       const newUser = {
         name: userName,
@@ -62,7 +60,6 @@ class Chat extends Component {
 
   addNewMessage = (message) => {
     const {owner} = this.state;
-    // const owner = localStorage.getItem('currentUser');
   	const {messages} = this.state;
     const time = (new Date()).toISOString();
 
@@ -83,14 +80,8 @@ class Chat extends Component {
     } 
     messages.push(newMessage);
   
-    this.setState({messages: messages}, () => {
-      this.scrollChatToEnd(true);
-    });
-    console.log('after setState');
-
 
     DBManager.setMessages(owner.id, messages);
-    // localStorage.setItem('messages',JSON.stringify(messages));
   }
 
   setMessageContainerRef = (messagesContainerElement) => {
@@ -114,7 +105,6 @@ class Chat extends Component {
 
   render() {
   	const {isChatWindowOpen, messages, valueInput} = this.state;
-    console.log('render');
 
     return (
       <div className="chat-container">

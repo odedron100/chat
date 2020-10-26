@@ -8,7 +8,6 @@ import DBManager from './DBManager';
 class UserDetails extends Component {
 	state = {
 		currentUser: null,
-		// users: [],
 		isLoading: false,
 		hasError: false
 	}
@@ -27,14 +26,6 @@ class UserDetails extends Component {
 			.catch((error) => {
 				this.setState({hasError: true})
 			});
-		// DBManager.getUsers().then((users) => {
-			// const currentUser = users.find(user => user.id === userId);
-
-			// // this.setState({users});
-			// // this.setState({isLoading: false});
-			// // this.setState({currentUser});
-			// this.setState({currentUser, users, isLoading: false});
-		// });
 
 	}
 
