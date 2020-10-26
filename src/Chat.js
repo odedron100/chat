@@ -14,7 +14,9 @@ class Chat extends Component {
   componentDidMount() {
     if (this.props.owner) {
       DBManager.getMessages(this.props.owner.id).then((messages) => {
-        this.setState({messages: messages || []});
+        this.setState({messages: messages || []}, () => {
+          this.scrollChatToEnd();
+        });
       });
     }
   }
@@ -23,9 +25,12 @@ class Chat extends Component {
 
 
   toggleChatWindow = () => {
-    // const {users} = this.state;
-    // console.log('users', users);
-  	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen});
+  	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
+      console.log('this.state.isChatWindowOpen', this.state.isChatWindowOpen);
+      if (this.state.isChatWindowOpen) {
+        this.scrollChatToEnd();
+      }
+    });
     if (!this.state.isChatWindowOpen && !this.props.owner) {
       const userName = prompt("Please enter your name");
       // this.setState({owner: userName});
@@ -33,21 +38,15 @@ class Chat extends Component {
     
       const newUser = {
         name: userName,
-        // id: id, 
       }
-      // this.props.updateCurrentUser(userName);
 
-      // users.push(newUser);
-
-      // this.setState({users: users});
-      // DBManager.setUsers(users);
       DBManager.createNewUser(newUser).then(user => {
         this.props.updateCurrentUser(user);
         this.setState({owner: user});
       });
     } else {
       this.setState({owner: this.props.owner});
-    } 
+    }
   }
 
   handleKeyDown = (e) => {
@@ -82,23 +81,46 @@ class Chat extends Component {
      time: time,
      owner: messageOwner,
     } 
-   messages.push(newMessage);
+    messages.push(newMessage);
   
-   this.setState({messages: messages});
+    this.setState({messages: messages}, () => {
+      this.scrollChatToEnd(true);
+    });
+    console.log('after setState');
+
 
     DBManager.setMessages(owner.id, messages);
     // localStorage.setItem('messages',JSON.stringify(messages));
   }
 
+  setMessageContainerRef = (messagesContainerElement) => {
+    this.messagesContainerElement = messagesContainerElement;
+  }
+
+  scrollChatToEnd = (isWithAnimation) => {
+    if (!this.messagesContainerElement) {
+      return;
+    }
+
+    const options = {top: this.messagesContainerElement.scrollHeight, left: 0};
+
+    if (isWithAnimation) {
+      options.behavior = 'smooth';
+    }
+
+    this.messagesContainerElement.scrollTo(options); 
+  }
+
 
   render() {
   	const {isChatWindowOpen, messages, valueInput} = this.state;
+    console.log('render');
 
     return (
       <div className="chat-container">
         {isChatWindowOpen && 
         	<div className="chat-window">
-        		<div className="messages-container">
+        		<div className="messages-container" ref={this.setMessageContainerRef}>
 					{messages.map((message, index) => {
             let textClassName = 'message-text ';
             const isAgentMessage = !message.owner.id;
