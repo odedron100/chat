@@ -93,6 +93,8 @@ class Chat extends Component {
 
   render() {
   	const {isChatWindowOpen, messages, valueInput} = this.state;
+    const textClassName = 'message-text ' + (this.props.isAgent && 'message-text-Agent');
+
 
     return (
       <div className="chat-container">
@@ -100,7 +102,7 @@ class Chat extends Component {
         	<div className="chat-window">
         		<div className="messages-container">
 					{messages.map((message, index) => {
-						return <div className={`users-messages ${message.owner.name}`} key={index}> <div>{`${message.owner.name}:`}</div> <div className="message-text" >{message.text}</div></div>
+						return <div className={`users-messages ${message.owner.name}`} key={index}> <div>{`${message.owner.name}:`}</div> <div className={textClassName} >{message.text}</div></div>
 					})}       	
         		</div>
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>

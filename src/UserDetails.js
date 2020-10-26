@@ -46,6 +46,7 @@ class UserDetails extends Component {
 		} else if (currentUser === null) {
 			return <Loading />;
 		}
+		console.log('currentUser', currentUser);
 
 		return(
 			<div>
