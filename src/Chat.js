@@ -111,13 +111,15 @@ class Chat extends Component {
         <div className="open-chat-button" onClick={this.toggleChatWindow}></div>
 
       	<div className={`chat-window ${isChatWindowOpen ? 'visible' : ''}`}>
+          <div className="chat-header">צ׳אט תמיכה</div>
       		<div className="messages-container" ref={this.setMessageContainerRef}>
+
 				{messages.map((message, index) => {
           let textClassName = 'message-text ';
           const isAgentMessage = !message.owner.id;
           textClassName = textClassName + (isAgentMessage && 'message-text-Agent');
 
-					return <div className={`users-messages ${message.owner.name}`} key={index}> <div>{`${message.owner.name}:`}</div> <div className={textClassName} >{message.text}</div></div>
+					return <div className={`users-messages ${message.owner.name}`} key={index}> <div className={textClassName} >{message.text}</div></div>
 				})}       	
       		</div>
       		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
