@@ -85,7 +85,6 @@
 .chat-container {
   position: fixed;
   right: 10px;
-  width: 400px;
   bottom: 10px;
   overflow: scroll;
   display: flex;
@@ -104,7 +103,7 @@
   user-select: none;
   border-radius: 50%;
   background-image: url(https://d3ooc9jud7priz.cloudfront.net/public/uploads/company_images/files/000/019/950/medium/twitter.png?1562328357);
-  background-size: 50%;
+  background-size: 45%;
   background-position: center;
   background-repeat: no-repeat;
 }
@@ -114,6 +113,7 @@
   border: 1px solid #ccc;
   overflow: scroll;
   width: 300px;
+  background-color: white;
 }
 
 .chat-container .chat-window {
@@ -121,6 +121,8 @@
   opacity: 0;
   transform: translateX(100px);
   pointer-events: none;
+  margin-bottom: 25px;
+  margin-right: 15px;
 }
 
 .chat-container .chat-window.visible {
@@ -130,8 +132,26 @@
 }
 
 .chat-input{
-  height: 30px;
+  height: 50px;
   width: 100%;
+  border-radius: 30px;
+  border: 1px solid #ccc;
+  position: relative;
+}
+
+.chat-container .chat-window:before {
+  content: ' ';
+  border: 1px solid #ccc;
+  background-color: white;
+  position: absolute;
+  bottom: 14px;
+  width: 20px;
+  height: 20px;
+  transform: rotate(45deg);
+  z-index: 1;
+  right: -6px;
+  border-left: none;
+  border-bottom: none;
 }
 
 .message-text{
