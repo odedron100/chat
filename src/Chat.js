@@ -108,6 +108,8 @@ class Chat extends Component {
 
     return (
       <div className="chat-container">
+        <div className="open-chat-button" onClick={this.toggleChatWindow}></div>
+        
         {isChatWindowOpen && 
         	<div className="chat-window">
         		<div className="messages-container" ref={this.setMessageContainerRef}>
@@ -122,7 +124,6 @@ class Chat extends Component {
         		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
         	</div>
         }
-        <div className="open-chat-button" onClick={this.toggleChatWindow}> נציג צ׳אט זמין עבורך </div>
       </div>
     );
   } 

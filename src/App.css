@@ -85,29 +85,35 @@
 .chat-container {
   position: fixed;
   right: 10px;
-  width: 300px;
-  bottom: 0;
-  text-orientation: mixed | upright | sideways;
+  width: 400px;
+  bottom: 10px;
   overflow: scroll;
+  display: flex;
+  align-items: flex-end;
 }
 
 .chat-container .open-chat-button {
-  /*position: sticky;*/
   background: #4169E1;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 100px;
+  width: 100px;
   cursor: pointer;
   user-select: none;
-
+  border-radius: 50%;
+  background-image: url(https://d3ooc9jud7priz.cloudfront.net/public/uploads/company_images/files/000/019/950/medium/twitter.png?1562328357);
+  background-size: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .chat-container .chat-window .messages-container {
   height: 350px;
   border: 1px solid #ccc;
   overflow: scroll;
+  width: 300px;
 }
 
 .chat-input{
