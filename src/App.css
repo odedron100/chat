@@ -116,6 +116,19 @@
   width: 300px;
 }
 
+.chat-container .chat-window {
+  transition: 0.5s opacity ease-in-out, 0.5s transform ease-in-out;
+  opacity: 0;
+  transform: translateX(100px);
+  pointer-events: none;
+}
+
+.chat-container .chat-window.visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
 .chat-input{
   height: 30px;
   width: 100%;

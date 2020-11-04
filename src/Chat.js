@@ -109,21 +109,19 @@ class Chat extends Component {
     return (
       <div className="chat-container">
         <div className="open-chat-button" onClick={this.toggleChatWindow}></div>
-        
-        {isChatWindowOpen && 
-        	<div className="chat-window">
-        		<div className="messages-container" ref={this.setMessageContainerRef}>
-					{messages.map((message, index) => {
-            let textClassName = 'message-text ';
-            const isAgentMessage = !message.owner.id;
-            textClassName = textClassName + (isAgentMessage && 'message-text-Agent');
 
-						return <div className={`users-messages ${message.owner.name}`} key={index}> <div>{`${message.owner.name}:`}</div> <div className={textClassName} >{message.text}</div></div>
-					})}       	
-        		</div>
-        		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
-        	</div>
-        }
+      	<div className={`chat-window ${isChatWindowOpen ? 'visible' : ''}`}>
+      		<div className="messages-container" ref={this.setMessageContainerRef}>
+				{messages.map((message, index) => {
+          let textClassName = 'message-text ';
+          const isAgentMessage = !message.owner.id;
+          textClassName = textClassName + (isAgentMessage && 'message-text-Agent');
+
+					return <div className={`users-messages ${message.owner.name}`} key={index}> <div>{`${message.owner.name}:`}</div> <div className={textClassName} >{message.text}</div></div>
+				})}       	
+      		</div>
+      		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
+      	</div>
       </div>
     );
   } 
