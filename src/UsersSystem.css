@@ -1,0 +1,128 @@
+.users-system-container .users-list {
+	padding: 0 80px;
+	max-width: 1000px;
+	margin: auto;
+}
+
+.users-system-container .list-input {
+	width: 100%;
+	margin-bottom: 20px;
+	border-radius: 20px;
+	height: 40px;
+	text-align: right;
+	padding: 0 30px;
+}
+
+.users-system-container .list-input:focus, .users-system-container .list-input:hover {
+	box-shadow: 0 1px 6px rgba(32,33,36,.28);
+	border: none;
+	outline: none;
+}
+
+.users-system-container .list-container	{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.users-system-container .user-link-container {
+	width: 250px;
+	height: 250px;
+	margin: 10px;
+	border-radius: 6px;
+	box-shadow: 0 1px 6px rgba(32,33,36,.28);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	position: relative;
+	color: black;
+	transform: translateY(20px);
+	opacity: 0;
+	background-size: 100%;
+	background-position: center;
+	border-radius: 50%;
+	background-repeat: no-repeat;
+	border: 5px solid white;
+	overflow: hidden;
+	transition: background-size 0.3s ease-in-out, filter 0.3s ease-in-out;
+}
+
+.users-system-container .user-link-container:hover {
+	background-size: 110%;
+	filter: grayscale(100%);
+}
+
+.users-system-container .user-link-container:nth-child(5n + 1) {
+  animation: fade-in 0.5s 0s ease-in-out forwards;
+}
+
+.users-system-container .user-link-container:nth-child(5n + 2) {
+  animation: fade-in 0.5s 0.15s ease-in-out forwards;
+}
+
+.users-system-container .user-link-container:nth-child(5n + 3) {
+  animation: fade-in 0.5s 0.3s ease-in-out forwards;
+}
+
+.users-system-container .user-link-container:nth-child(5n + 4) {
+  animation: fade-in 0.5s 0.45s ease-in-out forwards;
+}
+
+.users-system-container .user-link-container:nth-child(5n) {
+  animation: fade-in 0.5s 0.6s ease-in-out forwards;
+}
+
+/*
+.users-system-container .user-details-container .user-logo {
+	background-image: url(https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png);
+	height: 60px;
+	width: 60px;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	margin: auto;
+}*/
+
+.users-system-container .user-link-container {
+	text-decoration: none;
+}
+
+.users-system-container .user-details-container .name {
+	font-size: 24px;
+	text-align: center;
+}
+
+.users-system-container .user-details-container .messages-number {
+	font-size: 14px;
+}
+
+.users-system-container .user-details-container {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: white;
+	text-align: center;
+	padding-bottom: 10px;
+	padding-top: 5px;
+}
+
+.users-system-container .user-details-container .key {
+	position: absolute;
+	bottom: 5px;
+	font-size: 12px;
+	left: 0;
+	right: 0;
+	text-align: center;
+}
+
+@keyframes fade-in {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+}
