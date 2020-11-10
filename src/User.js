@@ -9,7 +9,7 @@ class User extends Component {
 		
 		return (
 			<div className="form-container">
-				<Route path={`${match.path}/:id`} component={UserDetails}/>
+				<Route path={`${match.path}/:userId`} component={UserDetails}/>
 
 				<Link to="/users/List">
 					<div id="list-Button">Return to users list</div>

@@ -11,13 +11,15 @@ class Chat extends Component {
 
   componentDidMount() {
     if (this.props.owner) {
-      DBManager.getMessages(this.props.owner.id, (messagesFromServer) => {
+      const onNewMessageAdded = (messagesFromServer) => {
         const isWithAnimation = this.state.messages.length !== 0;
 
         this.setState({messages: messagesFromServer || []}, () => {
           this.scrollChatToEnd(isWithAnimation);
         });
-      });
+      }
+
+      DBManager.registerToNewMessages(this.props.owner.id, onNewMessageAdded);
     }
   }
 

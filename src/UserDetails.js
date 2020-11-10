@@ -13,7 +13,7 @@ class UserDetails extends Component {
 	}
 
 	componentDidMount() {
-		const userId = this.props.match.params.id;
+		const userId = this.props.match.params.userId;
 
 		this.setState({isLoading: true});
 		DBManager.getUser(userId)

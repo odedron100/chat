@@ -56,7 +56,7 @@ class DBManager {
 		});
 	}
 
-	static createNewUser = (user) => {;
+	static createNewUser = (user) => {
 		return database.ref(USERS_COLLECTION_NAME).push(user).then((snap) => {
 			return {
 				...user,
@@ -75,7 +75,7 @@ class DBManager {
 		DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
 	}
 
-	static getMessages = (userId, onNewMessageAdded) => {
+	static registerToNewMessages = (userId, onNewMessageAdded) => {
 		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).on('value', (snap) => {
 			onNewMessageAdded(snap.val());
 		});

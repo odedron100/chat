@@ -25,7 +25,6 @@ class ListUsers extends Component {
 
 		const filteredUsersKeysArray = Object.keys(this.originalUsersObject).filter((key, index) => {
 			const item = this.originalUsersObject[key];
-
 			return item.name.toLowerCase().includes(e.target.value.toLowerCase());
 		});
 
