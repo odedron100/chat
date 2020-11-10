@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 
 class Loading extends Component {
 	render() {
-		return (<div className="loading">טוען... <span role="img" aria-label="clock">⏰</span></div>);
+		const {text} = this.props;
+		const defaultText = 'טוען...';
+
+		return (<div className="loading">{text || defaultText}<span role="img" aria-label="clock">⏰</span></div>);
 	}
 }
 

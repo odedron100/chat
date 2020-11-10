@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Route} from "react-router-dom";
 
-import ListUsers from './ListUsers';
+import UsersList from './UsersList';
 import User from './User';
+import './UsersSystem.css'
 
 class UsersSystem extends Component {
 	render() {
@@ -10,8 +11,8 @@ class UsersSystem extends Component {
 
 		return (
 			<div className="users-system-container">
-				<div>Users System</div>	
-				<Route path={`${match.path}/List`} component={ListUsers}/>
+				<div className="header">מערכת לניהול משתמשים</div>	
+				<Route path={`${match.path}/List`} component={UsersList}/>
 				<Route path={`${match.path}/User`} component={User}/>
 			</div>
 		);

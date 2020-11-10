@@ -10,7 +10,7 @@ class AgentSystem extends Component {
 
 		return (
 			<div className="agent-system-container">
-				<div>Agent System</div>
+				<div className="header">מערכת לניהול סוכני שירות</div>
 				
 				<Route path={`${match.path}/login`} component={LoginForm}/>
 				<Route path={`${match.path}/register`} component={RegisterForm}/>
