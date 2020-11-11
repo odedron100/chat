@@ -3,19 +3,21 @@ import {Link} from "react-router-dom";
 
 import DBManager from './DBManager';
 import Loading from './Loading';
+import Chat from './Chat';
 
 class UsersList extends Component {
 	state = {
 		users: {},
 		valueInput: '',
-		isLoadingOded: false,
+		isloading: false,
+		selectedUser: null,
 	}
 
 	componentDidMount() {
-		this.setState({isLoadingOded: true});
+		this.setState({isloading: true});
 	    DBManager.getUsers().then((users) => {
 	      this.setState({users});
-		  this.setState({isLoadingOded: false});
+		  this.setState({isloading: false});
 		  this.originalUsersObject = users;
 	    });
 	}
@@ -39,13 +41,24 @@ class UsersList extends Component {
 		this.setState({users: filteredUsersAsObject});
   }
 
+
+  onUserClicked = (key) =>{
+  	const {selectedUser, users} = this.state;
+  	const currentUser = {
+  		name: users[key].name,
+  		id: key
+  	};
+
+  	this.setState({selectedUser: currentUser});
+  }
+
 	render() {
 
-		const {users, isLoadingOded,valueInput} = this.state;
+		const {users, isloading,valueInput,selectedUser} = this.state;
 
 		return (
 			<div className="listUsers-container">
-				{isLoadingOded ?
+				{isloading ?
 					<Loading text="טוען משתמשים..." />
 					:
 					<div className="users-list">
@@ -54,17 +67,18 @@ class UsersList extends Component {
 							{Object.keys(users).map((key, index) => {
 								const item = users[key];
 								return(
-									<Link to={`/users/user/${key}`} className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}>
+									<div className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}  onClick={()=>this.onUserClicked(key)}>
 										<div className="user-details-container">
 											<div className="name">{item.name}</div>
 											<span className="all-Item">
 											</span>
 											<span className="messages-number">{index * 8 + 17} הודעות</span>
 									    </div>
-									</Link>
+									</div>
 								)
 								
 							})}
+							{selectedUser && <Chat owner={selectedUser} isAgent={true}/>}
 						</div>
 					</div>
 				}

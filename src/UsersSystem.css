@@ -5,12 +5,12 @@
 }
 
 .users-system-container .list-input {
-	width: 100%;
+	width: 70%;
 	margin-bottom: 20px;
 	border-radius: 20px;
 	height: 40px;
 	text-align: right;
-	padding: 0 30px;
+	padding: 0 20px;
 }
 
 .users-system-container .list-input:focus, .users-system-container .list-input:hover {
@@ -46,6 +46,7 @@
 	border: 5px solid white;
 	overflow: hidden;
 	transition: background-size 0.3s ease-in-out, filter 0.3s ease-in-out;
+	cursor: pointer;
 }
 
 .users-system-container .user-link-container:hover {

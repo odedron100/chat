@@ -92,6 +92,8 @@ class DBManager {
 	static setCurrentUser = (newUser) => {
 		DBManager.setSingleItem(CURRENT_USER, newUser);
 	}
+
+
 }
 
 export default DBManager;
