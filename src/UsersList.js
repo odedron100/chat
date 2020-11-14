@@ -49,7 +49,9 @@ class UsersList extends Component {
   		id: key
   	};
 
-  	this.setState({selectedUser: currentUser});
+  	this.setState({selectedUser: null}, () => {
+      this.setState({selectedUser:currentUser})
+    });
   }
 
 	render() {
