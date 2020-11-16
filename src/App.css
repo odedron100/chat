@@ -165,6 +165,12 @@
   border: 1px solid #ccc;
   position: relative;
   padding-right: 22px;
+  padding-left: 15px;
+  padding-top: 10px;
+  background: white;
+  max-width: 300px;
+  overflow: scroll;
+
 }
 
 .chat-input:focus {
@@ -195,6 +201,7 @@
   padding: 10px 15px;
   color: white;
   font-size: 13px;
+  max-width: 250px;
 }
 
 .message-text-Agent{

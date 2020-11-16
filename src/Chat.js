@@ -51,14 +51,11 @@ class Chat extends Component {
 
   handleKeyDown = (e) => {
   	if (e.keyCode === 13 && e.target.value !== '') {
-      this.addNewMessage(e.target.value);
-      this.setState({valueInput: ''});
+      this.addNewMessage(this.inputValueElement.innerText);
+      this.inputValueElement.innerHTML = '';
   	}
   }
 
-  handleChange = (e) => {
-	this.setState({valueInput: e.target.value});
-  }
 
   addNewMessage = (message) => {
     const {owner} = this.state;
@@ -86,9 +83,14 @@ class Chat extends Component {
     DBManager.setMessages(owner.id, messages);
   }
 
+  inputValueRef = (inputValueElement) => {
+    this.inputValueElement = inputValueElement;
+  }
+
   setMessageContainerRef = (messagesContainerElement) => {
     this.messagesContainerElement = messagesContainerElement;
   }
+
 
   scrollChatToEnd = (isWithAnimation) => {
     if (!this.messagesContainerElement) {
@@ -124,7 +126,7 @@ class Chat extends Component {
 					return <div className={`users-messages ${message.owner.name}`} key={index}> <div className={textClassName} >{message.text}</div></div>
 				})}       	
       		</div>
-      		<input className="chat-input" value={valueInput} onChange={this.handleChange} onKeyDown={this.handleKeyDown}></input>
+      		<div className="chat-input" contentEditable='true'  ref={this.inputValueRef} onKeyDown={this.handleKeyDown}></div>
       	</div>
       </div>
     );
