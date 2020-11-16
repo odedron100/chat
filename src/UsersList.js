@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
 
 import DBManager from './DBManager';
 import Loading from './Loading';
@@ -43,7 +42,7 @@ class UsersList extends Component {
 
 
   onUserClicked = (key) =>{
-  	const {selectedUser, users} = this.state;
+  	const {users} = this.state;
   	const currentUser = {
   		name: users[key].name,
   		id: key

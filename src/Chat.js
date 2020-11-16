@@ -108,7 +108,7 @@ class Chat extends Component {
 
 
   render() {
-  	const {isChatWindowOpen, messages, valueInput} = this.state;
+  	const {isChatWindowOpen, messages} = this.state;
 
     return (
       <div className="chat-container">
