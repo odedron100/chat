@@ -93,7 +93,29 @@ class DBManager {
 		DBManager.setSingleItem(CURRENT_USER, newUser);
 	}
 
+	static loginWithEmailAndPassword = (email, password) => {
+		return firebase.auth().signInWithEmailAndPassword(
+		    email,
+		    password
+		);
+	}
 
+	static createNewAgentUser = (user) => {
+		const {email, fullname, password} = user;
+
+		console.log('firebase', firebase);
+		console.log('firebase.auth', firebase.auth);
+		console.log('firebase.auth()', firebase.auth());
+		console.log('firebase.auth().createUserWithEmailAndPassword', firebase.auth().createUserWithEmailAndPassword);
+
+		return firebase.auth().createUserWithEmailAndPassword(
+		  email,
+		  password
+		)
+		  .catch(function(error) {
+		    console.log('Error creating new user:', error);
+		  });
+	}
 }
 
 export default DBManager;

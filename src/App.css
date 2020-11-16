@@ -82,6 +82,17 @@
   color: #4d90fe;
 }
 
+.error-message {
+  width: 70%;
+  /*border: 1px solid #ccc;*/
+  background: #ed4337;
+  color: white;
+  line-height: 40px;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
 .input {
   width: 70%;
   line-height: 40px;
