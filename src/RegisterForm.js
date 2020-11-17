@@ -41,7 +41,7 @@ class RegisterForm extends Component {
 		}
 
 		DBManager.createNewAgentUser(user).then(() => {
-			console.log('new account created!');
+			this.props.history.push('/agents/login');
 		});
 	}
 
