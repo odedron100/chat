@@ -77,9 +77,18 @@ class DBManager {
 
 	static registerToNewMessages = (userId, onNewMessageAdded) => {
 		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).on('value', (snap) => {
-			onNewMessageAdded(snap.val());
+			onNewMessageAdded(
+					snap.val()
+				);
 		});
 	}
+
+	// static getMessages = (userId) => {
+	// 	const promise = database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).once('value').then((snap) => {
+	// 		return snap.val();
+	// 	})
+	// 	return promise;
+	// }
 
 	static setMessages = (userId, messages) => {
 		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).set(messages);
