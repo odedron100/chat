@@ -96,8 +96,8 @@ class UsersList extends Component {
 								 // console.log('messages[key]', messages[key]);
 									return(
 										<div className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}  onClick={()=>this.onUserClicked(key)}>
+										{messages[key] && <div className="messages-number">{messages[key].length} </div>}
 											<div className="user-details-container">
-												{messages[key] && <div className="messages-number">{`${messages[key].length} הודעות`} </div>}
 												<div className="name">{item.name}</div>
 												<span className="all-Item">
 												</span>

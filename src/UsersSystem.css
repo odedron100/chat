@@ -86,6 +86,7 @@
 
 .users-system-container .user-link-container {
 	text-decoration: none;
+	position: relative;
 }
 
 .users-system-container .user-details-container .name {
@@ -93,8 +94,19 @@
 	text-align: center;
 }
 
-.users-system-container .user-details-container .messages-number {
-	font-size: 14px;
+.users-system-container .messages-number {
+	font-size: 20px;
+	text-align: center;
+	padding-top: 5px;
+	height: 35px;
+	width: 35px;
+	/*border: 1px solid black;*/
+	border-radius: 50%;
+	background: white;
+	position: absolute;
+	left: 185px;
+	top: 40px;
+	box-shadow: 0 1px 6px rgba(32,33,36,.28);
 }
 
 .users-system-container .user-details-container {
@@ -106,6 +118,8 @@
 	text-align: center;
 	padding-bottom: 10px;
 	padding-top: 5px;
+	/*display: flex;*/
+
 }
 
 .users-system-container .user-details-container .key {
