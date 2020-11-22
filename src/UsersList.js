@@ -14,20 +14,14 @@ class UsersList extends Component {
 	}
 
 	componentDidMount() {
-		// const {messages} = this.state;
 		this.setState({isloading: true});
 	    DBManager.getUsers().then((users) => {
 	      this.setState({users});
 		  this.setState({isloading: false});
 		  this.originalUsersObject = users;
-		  // console.log('this.originalUsersObject', this.originalUsersObject);
-			// console.log('currentKey', currentKey);
+
 			Object.keys(users).forEach(currentKey => {
 		  		const onNewMessageAdded = (messagesFromServer) => {
-
-       				// this.setState({messages: messagesFromServer || {});
-
-         			// this.scrollChatToEnd(isWithAnimation);
       
      					const messages = {
      						...this.state.messages,
@@ -90,10 +84,7 @@ class UsersList extends Component {
 						<div className="list-container">
 							{Object.keys(users).map((key, index) => {
 								const item = users[key];
-								// console.log('messages[item]', messages[item]);
-								// DBManager.getMessages(key).then((messages) => {
-								 // console.log('messages', messages);
-								 // console.log('messages[key]', messages[key]);
+								
 									return(
 										<div className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}  onClick={()=>this.onUserClicked(key)}>
 										{messages[key] && <div className="messages-number">{messages[key].length} </div>}
@@ -105,7 +96,7 @@ class UsersList extends Component {
 										    </div>
 										</div>
 									)
-								// });	
+								
 							})}
 							{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages}/>}
 
