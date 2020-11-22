@@ -10,10 +10,17 @@ class UsersList extends Component {
 		valueInput: '',
 		isloading: false,
 		selectedUser: null,
-		messages:{}
+		messages:{},
+		currentAgent:null,
 	}
 
 	componentDidMount() {
+		const currentAgent = DBManager.getCurrentAgent();
+		// console.log('currentAgent', currentAgent);
+		if (currentAgent) {
+			this.setState({currentAgent});
+		}
+		
 		this.setState({isloading: true});
 	    DBManager.getUsers().then((users) => {
 	      this.setState({users});
@@ -71,15 +78,15 @@ class UsersList extends Component {
 
 	render() {
 
-		const {users, isloading,valueInput,selectedUser, messages} = this.state;
-		// console.log('messages', messages);
-		// console.log('users[key', users[key);
+		const {users, isloading,valueInput,selectedUser, messages,currentAgent} = this.state;
+		// console.log('currentAgent', currentAgent);
 			return (
 			<div className="listUsers-container">
 				{isloading ?
 					<Loading text="טוען משתמשים..." />
 					:
 					<div className="users-list">
+						{currentAgent&&<div className="agent-name">{` שלום, ${currentAgent.fullName} `}</div>}
 						<input className="list-input" placeholder="חפש משתמשים" onChange={this.handleChange} value={valueInput}></input>
 						<div className="list-container">
 							{Object.keys(users).map((key, index) => {

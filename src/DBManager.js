@@ -20,6 +20,7 @@ const USERS_COLLECTION_NAME = 'users';
 const AGENTS_COLLECTION_NAME = 'agents';
 const MESSAGES_COLLECTION_NAME = 'messages';
 const CURRENT_USER = 'currentUser';
+const CURRENT_AGENT = 'currentAgent';
 
 class DBManager {
 	static getSingleItem = (itemName) => {
@@ -98,8 +99,16 @@ class DBManager {
 		return DBManager.getSingleItem(CURRENT_USER);
 	}
 
+	static getCurrentAgent = () => {
+		return DBManager.getSingleItem(CURRENT_AGENT);
+	}
+
 	static setCurrentUser = (newUser) => {
 		DBManager.setSingleItem(CURRENT_USER, newUser);
+	}
+
+	static setCurrentAgent = (newAgent) => {
+		DBManager.setSingleItem(CURRENT_AGENT, newAgent);
 	}
 
 	static loginWithEmailAndPassword = (email, password) => {

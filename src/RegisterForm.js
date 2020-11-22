@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 
 import DBManager from './DBManager';
+import LoginForm from './LoginForm';
 
 class RegisterForm extends Component {
 	state = {
@@ -10,7 +11,8 @@ class RegisterForm extends Component {
 		email: '',
 		password: '',
 		passwordConfirmation: '',
-		validationError: null
+		validationError: null,
+		currentAgent:null,
 	}
 
 	createNewAccount = () => {
@@ -40,6 +42,9 @@ class RegisterForm extends Component {
 			password: password
 		}
 
+		DBManager.setCurrentAgent(user);
+		this.setState({currentAgent:user});
+
 		DBManager.createNewAgentUser(user).then(() => {
 			this.props.history.push('/agents/login');
 		});
@@ -52,6 +57,7 @@ class RegisterForm extends Component {
 	}
  
 	render() {
+		console.log('this.state.currentAgent', this.state.currentAgent);
 		return (
 			<div className="form-container">
 			<div className="title">צור משתמש חדש</div>
