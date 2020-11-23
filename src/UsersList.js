@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {Redirect} from "react-router-dom";
 
 import DBManager from './DBManager';
 import Loading from './Loading';
@@ -15,6 +16,7 @@ class UsersList extends Component {
 	}
 
 	componentDidMount() {
+		console.log('here');
 		const currentAgent = DBManager.getCurrentAgent();
 		// console.log('currentAgent', currentAgent);
 		if (currentAgent) {
@@ -76,10 +78,16 @@ class UsersList extends Component {
     });
   }
 
+  logOutButton = () =>{
+  	localStorage.clear('currentAgent');
+  	this.setState({currentAgent:null}); 
+  }
+
 	render() {
 
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent} = this.state;
-		// console.log('currentAgent', currentAgent);
+		const agent = DBManager.getCurrentAgent();
+		console.log('agent', agent);
 			return (
 			<div className="listUsers-container">
 				{isloading ?
@@ -87,6 +95,8 @@ class UsersList extends Component {
 					:
 					<div className="users-list">
 						{currentAgent&&<div className="agent-name">{` שלום, ${currentAgent.fullName} `}</div>}
+						<div className="log-out-button" onClick={this.logOutButton}>התנתק</div>
+						{!agent && <Redirect to="/agents/login" />}
 						<input className="list-input" placeholder="חפש משתמשים" onChange={this.handleChange} value={valueInput}></input>
 						<div className="list-container">
 							{Object.keys(users).map((key, index) => {

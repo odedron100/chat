@@ -2,6 +2,7 @@
 	padding: 0 80px;
 	max-width: 1000px;
 	margin: auto;
+	position: relative;
 }
 
 .users-system-container .list-input {
@@ -134,8 +135,18 @@
 
 .users-system-container .agent-name {
 	direction: rtl;
-	margin: 15px;
-	font-size: 20px;
+	font-size: 15px;
+	position: absolute;
+	bottom: 1170px;
+	right: 0px;
+}
+
+.users-system-container .log-out-button{
+	direction: ltr;
+	position: absolute;
+	bottom: 1170px;
+	left: 0px;
+	cursor: pointer;
 }
 	
 

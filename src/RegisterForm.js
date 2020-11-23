@@ -57,7 +57,7 @@ class RegisterForm extends Component {
 	}
  
 	render() {
-		console.log('this.state.currentAgent', this.state.currentAgent);
+		// console.log('this.state.currentAgent', this.state.currentAgent);
 		return (
 			<div className="form-container">
 			<div className="title">צור משתמש חדש</div>
