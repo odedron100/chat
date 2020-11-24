@@ -28,21 +28,22 @@ class Chat extends Component {
 
   toggleChatWindow = () => {
   	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
-      console.log('this.state.isChatWindowOpen', this.state.isChatWindowOpen);
       if (this.state.isChatWindowOpen) {
         this.scrollChatToEnd();
       }
     });
     if (!this.state.isChatWindowOpen && !this.props.owner) {
       const userName = prompt("Please enter your name");
-    
+
       const newUser = {
         name: userName,
       }
 
       DBManager.createNewUser(newUser).then(user => {
         this.props.updateCurrentUser(user);
-        this.setState({owner: user});
+        this.setState({owner: user}, () => {
+          this.addNewMessage(`שלום ${userName}, איך אפשר לעזור?`);
+        });
       });
     } else {
       this.setState({owner: this.props.owner});
@@ -56,11 +57,30 @@ class Chat extends Component {
   	}
   }
 
-
   addNewMessage = (message) => {
+    debugger
     const {owner} = this.state;
   	const {messages} = this.state;
     const time = (new Date()).toISOString();
+
+    if (messages.length === 0) {
+      let messageOwner;
+
+      messageOwner = {
+        name:'Agent'
+      }
+
+      const newMessage = {
+        text:message,
+        time:time,
+        owner:messageOwner
+      }
+      // messages.push(newMessage);
+      this.setState({messages: [...messages, newMessage]});
+      
+      DBManager.setMessages(owner.id, messages);
+       
+    }
 
     let messageOwner;
 
@@ -79,8 +99,9 @@ class Chat extends Component {
     } 
     messages.push(newMessage);
   
-
+    
     DBManager.setMessages(owner.id, messages);
+      
   }
 
   inputValueRef = (inputValueElement) => {
@@ -109,6 +130,7 @@ class Chat extends Component {
 
   render() {
   	const {isChatWindowOpen, messages} = this.state;
+    console.log('messages', messages);
 
     return (
       <div className="chat-container">

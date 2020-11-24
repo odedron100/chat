@@ -28,20 +28,21 @@ class UsersList extends Component {
 	      this.setState({users});
 		  this.setState({isloading: false});
 		  this.originalUsersObject = users;
+			if (users) {
+				Object.keys(users).forEach(currentKey => {
+			  		const onNewMessageAdded = (messagesFromServer) => {
+	      
+	     					const messages = {
+	     						...this.state.messages,
+	     						[currentKey]:messagesFromServer || []
+	     					};
 
-			Object.keys(users).forEach(currentKey => {
-		  		const onNewMessageAdded = (messagesFromServer) => {
-      
-     					const messages = {
-     						...this.state.messages,
-     						[currentKey]:messagesFromServer || []
-     					};
-
-     					this.setState({messages:messages});
-     				
-          		}
-     				DBManager.registerToNewMessages(currentKey,onNewMessageAdded);
-			});	
+	     					this.setState({messages:messages});
+	     				
+	          		}
+	     				DBManager.registerToNewMessages(currentKey,onNewMessageAdded);
+				});	
+			}	
 		});  
 
 	}
@@ -87,7 +88,6 @@ class UsersList extends Component {
 
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent} = this.state;
 		const agent = DBManager.getCurrentAgent();
-		console.log('agent', agent);
 			return (
 			<div className="listUsers-container">
 				{isloading ?
@@ -98,7 +98,7 @@ class UsersList extends Component {
 						<div className="log-out-button" onClick={this.logOutButton}>התנתק</div>
 						{!agent && <Redirect to="/agents/login" />}
 						<input className="list-input" placeholder="חפש משתמשים" onChange={this.handleChange} value={valueInput}></input>
-						<div className="list-container">
+						{users && <div className="list-container">
 							{Object.keys(users).map((key, index) => {
 								const item = users[key];
 								
@@ -117,7 +117,7 @@ class UsersList extends Component {
 							})}
 							{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages}/>}
 
-						</div>
+						</div>}
 					</div>
 				}
 			</div>

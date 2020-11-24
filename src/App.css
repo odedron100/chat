@@ -101,6 +101,7 @@
   border: 1px solid #ccc;
   padding-right: 10px;
   font-size: 16px;
+
 }
 
 .chat-container {
@@ -110,6 +111,7 @@
   overflow: scroll;
   display: flex;
   align-items: flex-end;
+  /*pointer-events: none;*/
 }
 
 .chat-container .open-chat-button {
