@@ -11,7 +11,7 @@ class UsersSystem extends Component {
 
 		return (
 			<div className="users-system-container">
-				<div className="header">מערכת לניהול משתמשים</div>	
+				<div className="header">מערכת לניהול משתמשים</div>
 				<Route path={`${match.path}/List`} component={UsersList}/>
 				<Route path={`${match.path}/User`} component={User}/>
 			</div>

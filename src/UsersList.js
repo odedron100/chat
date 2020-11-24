@@ -88,6 +88,7 @@ class UsersList extends Component {
 
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent} = this.state;
 		const agent = DBManager.getCurrentAgent();
+						// {!agent && <Redirect to="/agents/login" />}
 			return (
 			<div className="listUsers-container">
 				{isloading ?
@@ -96,7 +97,6 @@ class UsersList extends Component {
 					<div className="users-list">
 						{currentAgent&&<div className="agent-name">{` שלום, ${currentAgent.fullName} `}</div>}
 						<div className="log-out-button" onClick={this.logOutButton}>התנתק</div>
-						{!agent && <Redirect to="/agents/login" />}
 						<input className="list-input" placeholder="חפש משתמשים" onChange={this.handleChange} value={valueInput}></input>
 						{users && <div className="list-container">
 							{Object.keys(users).map((key, index) => {

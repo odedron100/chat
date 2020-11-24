@@ -77,6 +77,7 @@ class DBManager {
 	}
 
 	static registerToNewMessages = (userId, onNewMessageAdded) => {
+		// console.log('register....', `chats/${userId}/${MESSAGES_COLLECTION_NAME}`);
 		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).on('value', (snap) => {
 			onNewMessageAdded(
 					snap.val()
@@ -92,7 +93,7 @@ class DBManager {
 	// }
 
 	static setMessages = (userId, messages) => {
-		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).set(messages);
+		return database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).set(messages);
 	}
 
 	static getCurrentUser = () => {

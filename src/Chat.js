@@ -11,20 +11,23 @@ class Chat extends Component {
 
   componentDidMount() {
     if (this.props.owner) {
-      const onNewMessageAdded = (messagesFromServer) => {
-        const isWithAnimation = this.state.messages.length !== 0;
-
-        this.setState({messages: messagesFromServer || []}, () => {
-          this.scrollChatToEnd(isWithAnimation);
-        });
-      }
-
-      DBManager.registerToNewMessages(this.props.owner.id, onNewMessageAdded);
+      this.registerToNewMessages(this.props.owner.id);
     }
   }
 
+  registerToNewMessages = (ownerId) => {
+    console.log('ownerId', ownerId);
+    const onNewMessageAdded = (messagesFromServer) => {
+      const isWithAnimation = this.state.messages.length !== 0;
+      console.log('messagesFromServer', messagesFromServer);
 
+      this.setState({messages: messagesFromServer || []}, () => {
+        this.scrollChatToEnd(isWithAnimation);
+      });
+    }
 
+    DBManager.registerToNewMessages(ownerId, onNewMessageAdded);
+  }
 
   toggleChatWindow = () => {
   	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
@@ -58,7 +61,6 @@ class Chat extends Component {
   }
 
   addNewMessage = (message) => {
-    debugger
     const {owner} = this.state;
   	const {messages} = this.state;
     const time = (new Date()).toISOString();
@@ -76,32 +78,35 @@ class Chat extends Component {
         owner:messageOwner
       }
       // messages.push(newMessage);
-      this.setState({messages: [...messages, newMessage]});
+      // this.setState({messages: [...messages, newMessage]});
+
       
-      DBManager.setMessages(owner.id, messages);
-       
-    }
-
-    let messageOwner;
-
-    if (this.props.isAgent) {
-      messageOwner = {
-        name: 'Agent'
-      }
+      console.log('before set messages - owner.id', owner.id);
+      DBManager.setMessages(owner.id, [newMessage])
+        .then(() => {
+          this.registerToNewMessages(owner.id);
+        })
     } else {
-      messageOwner = owner;
-    }
+      let messageOwner;
 
-    const newMessage = {
-     text: message,
-     time: time,
-     owner: messageOwner,
-    } 
-    messages.push(newMessage);
-  
+      if (this.props.isAgent) {
+        messageOwner = {
+          name: 'Agent'
+        }
+      } else {
+        messageOwner = owner;
+      }
+
+      const newMessage = {
+       text: message,
+       time: time,
+       owner: messageOwner,
+      } 
+      // messages.push(newMessage);
     
-    DBManager.setMessages(owner.id, messages);
       
+      DBManager.setMessages(owner.id, [...messages, newMessage]);
+    }
   }
 
   inputValueRef = (inputValueElement) => {
