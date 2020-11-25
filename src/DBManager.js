@@ -122,17 +122,19 @@ class DBManager {
 	static createNewAgentUser = (user) => {
 		const {email, fullname, password} = user;
 
-		console.log('firebase', firebase);
-		console.log('firebase.auth', firebase.auth);
-		console.log('firebase.auth()', firebase.auth());
-		console.log('firebase.auth().createUserWithEmailAndPassword', firebase.auth().createUserWithEmailAndPassword);
-
+		// console.log('firebase', firebase);
+		// console.log('firebase.auth', firebase.auth);
+		// console.log('firebase.auth()', firebase.auth());
+		// console.log('firebase.auth().createUserWithEmailAndPassword', firebase.auth().createUserWithEmailAndPassword);
+		// const error = (firebase.auth().createUserWithEmailAndPassword);
+		// console.log('error', error);
 		return firebase.auth().createUserWithEmailAndPassword(
 		  email,
 		  password
 		)
 		  .catch(function(error) {
-		    console.log('Error creating new user:', error);
+		    console.log('Error creating new user:', error.cose);
+		    console.log(error);
 		  });
 	}
 }

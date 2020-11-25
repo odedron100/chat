@@ -36,6 +36,10 @@ class RegisterForm extends Component {
 			return this.setState({validationError: 'הסיסמאות לא תואמות!'});
 		}
 
+		if (password.length < 6) {
+			return this.setState({validationError: 'סיסמא צריכה להיות בת 6 ספרות'})
+		}
+
 		const user = {
 			fullName: `${firstName} ${lastName}`,
 			email: email,
@@ -47,7 +51,10 @@ class RegisterForm extends Component {
 
 		DBManager.createNewAgentUser(user).then(() => {
 			this.props.history.push('/agents/login');
-		});
+		})
+		.catch((error) => {
+				console.log('erorrrrrrr');
+			});
 	}
 
 	createHandleFieldChange = (fieldName) => {
