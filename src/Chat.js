@@ -30,25 +30,32 @@ class Chat extends Component {
   }
 
   toggleChatWindow = () => {
-  	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
-      if (this.state.isChatWindowOpen) {
-        this.scrollChatToEnd();
-      }
-    });
     if (!this.state.isChatWindowOpen && !this.props.owner) {
       const userName = prompt("Please enter your name");
-
-      const newUser = {
-        name: userName,
-      }
-
-      DBManager.createNewUser(newUser).then(user => {
-        this.props.updateCurrentUser(user);
-        this.setState({owner: user}, () => {
-          this.addNewMessage(`?שלום ${userName}, איך אפשר לעזור`);
+      if (userName !== null) {
+        const newUser = {
+          name: userName,
+        }
+      	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
+          if (this.state.isChatWindowOpen) {
+            this.scrollChatToEnd();
+          }
         });
-      });
+
+        DBManager.createNewUser(newUser).then(user => {
+          this.props.updateCurrentUser(user);
+          this.setState({owner: user}, () => {
+            this.addNewMessage(`?שלום ${userName}, איך אפשר לעזור`);
+          });
+        });
+      }  
+
     } else {
+      this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
+          if (this.state.isChatWindowOpen) {
+            this.scrollChatToEnd();
+          }
+        });
       this.setState({owner: this.props.owner});
     }
   }

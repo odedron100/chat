@@ -4,7 +4,6 @@ import {Redirect} from "react-router-dom";
 import DBManager from './DBManager';
 import Loading from './Loading';
 import Chat from './Chat';
-// import UsersSystem from './UsersSystem';
 
 class UsersList extends Component {
 	state = {
@@ -86,6 +85,7 @@ class UsersList extends Component {
   }
 
 	render() {
+		console.log('this.props', this.props);
 
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent} = this.state;
 		const agent = DBManager.getCurrentAgent();
@@ -117,7 +117,6 @@ class UsersList extends Component {
 								
 							})}
 							{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages}/>}
-							
 
 						</div>}
 					</div>
