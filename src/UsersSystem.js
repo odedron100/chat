@@ -8,6 +8,7 @@ import './UsersSystem.css'
 class UsersSystem extends Component {
 	render() {
 		const {match} = this.props;
+		console.log('this.props.currentAgent', this.props.currentAgent);
 
 		return (
 			<div className="users-system-container">

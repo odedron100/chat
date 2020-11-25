@@ -45,7 +45,7 @@ class Chat extends Component {
       DBManager.createNewUser(newUser).then(user => {
         this.props.updateCurrentUser(user);
         this.setState({owner: user}, () => {
-          this.addNewMessage(`שלום ${userName}, איך אפשר לעזור?`);
+          this.addNewMessage(`?שלום ${userName}, איך אפשר לעזור`);
         });
       });
     } else {
@@ -86,6 +86,7 @@ class Chat extends Component {
         .then(() => {
           this.registerToNewMessages(owner.id);
         })
+        
     } else {
       let messageOwner;
 
