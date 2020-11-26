@@ -50,20 +50,22 @@ class UsersList extends Component {
 	 handleChange = (e) => {
 		this.setState({valueInput: e.target.value});
 
-		const filteredUsersKeysArray = Object.keys(this.originalUsersObject).filter((key, index) => {
-			const item = this.originalUsersObject[key];
-			return item.name.toLowerCase().includes(e.target.value.toLowerCase());
-		});
+		if (this.state.users) {
+			const filteredUsersKeysArray = Object.keys(this.originalUsersObject).filter((key, index) => {
+				const item = this.originalUsersObject[key];
+				return item.name.toLowerCase().includes(e.target.value.toLowerCase());
+			});
 
 
-		const filteredUsersAsObject = {};
+			const filteredUsersAsObject = {};
 
-		filteredUsersKeysArray.forEach(currentKey => {
-			const item = this.originalUsersObject[currentKey];
-			filteredUsersAsObject[currentKey] = item;
-		});
+			filteredUsersKeysArray.forEach(currentKey => {
+				const item = this.originalUsersObject[currentKey];
+				filteredUsersAsObject[currentKey] = item;
+			});
 
-		this.setState({users: filteredUsersAsObject});
+			this.setState({users: filteredUsersAsObject});
+		}
   }
 
 
@@ -99,6 +101,7 @@ class UsersList extends Component {
 						{currentAgent&&<div className="agent-name">{` שלום, ${currentAgent.fullName} `}</div>}
 						<div className="log-out-button" onClick={this.logOutButton}>התנתק</div>
 						<input className="list-input" placeholder="חפש משתמשים" onChange={this.handleChange} value={valueInput}></input>
+						{!users && <div className="no-users">אין משתמשים פעילים</div>}
 						{users && <div className="list-container">
 							{Object.keys(users).map((key, index) => {
 								const item = users[key];

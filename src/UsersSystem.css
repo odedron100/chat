@@ -155,7 +155,26 @@
 .users-system-container .log-out-button:hover{
 	transform: scale(1.2);
 }	
-	
+
+.no-users{
+	text-align: center;
+	font-size: 30px;
+	margin: 150px;
+	 animation: no-users 0.75s ease-in-out infinite;
+}	
+
+
+@keyframes no-users {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 @keyframes fade-in {
 	0% {
