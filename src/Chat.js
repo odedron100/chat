@@ -7,16 +7,19 @@ class Chat extends Component {
   	isChatWindowOpen: false,
   	valueInput: '',
     messages: [],
+    // onlineAgent:null,
   }
 
   componentDidMount() {
+    // const onAgentLogin = (onlineAgent) =>{
+    //   this.setState({onlineAgent:onlineAgent});
+    // }
     if (this.props.owner) {
       this.registerToNewMessages(this.props.owner.id);
     }
   }
 
   registerToNewMessages = (ownerId) => {
-    console.log('ownerId', ownerId);
     const onNewMessageAdded = (messagesFromServer) => {
       const isWithAnimation = this.state.messages.length !== 0;
       console.log('messagesFromServer', messagesFromServer);
@@ -30,33 +33,37 @@ class Chat extends Component {
   }
 
   toggleChatWindow = () => {
-    if (!this.state.isChatWindowOpen && !this.props.owner) {
-      const userName = prompt("Please enter your name");
-      if (userName !== null) {
-        const newUser = {
-          name: userName,
-        }
-      	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
-          if (this.state.isChatWindowOpen) {
-            this.scrollChatToEnd();
+    if (this.props.currentOnlineAgent) {
+      if (!this.state.isChatWindowOpen && !this.props.owner) {
+        const userName = prompt("Please enter your name");
+        if (userName !== null) {
+          const newUser = {
+            name: userName,
           }
-        });
-
-        DBManager.createNewUser(newUser).then(user => {
-          this.props.updateCurrentUser(user);
-          this.setState({owner: user}, () => {
-            this.addNewMessage(`?שלום ${userName}, איך אפשר לעזור`);
+        	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
+            if (this.state.isChatWindowOpen) {
+              this.scrollChatToEnd();
+            }
           });
-        });
-      }  
 
-    } else {
-      this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
-          if (this.state.isChatWindowOpen) {
-            this.scrollChatToEnd();
-          }
-        });
-      this.setState({owner: this.props.owner});
+          DBManager.createNewUser(newUser).then(user => {
+            this.props.updateCurrentUser(user);
+            this.setState({owner: user}, () => {
+              this.addNewMessage(`?שלום ${userName}, איך אפשר לעזור`);
+            });
+          });
+        }  
+
+      } else {
+        this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
+            if (this.state.isChatWindowOpen) {
+              this.scrollChatToEnd();
+            }
+          });
+        this.setState({owner: this.props.owner});
+      }
+    }  else {
+    return ;
     }
   }
 
@@ -144,10 +151,14 @@ class Chat extends Component {
   render() {
   	const {isChatWindowOpen, messages} = this.state;
     console.log('messages', messages);
-
+    // console.log('this.state.onlineAgent', this.state.onlineAgent);
+    console.log('this.props.currentOnlineAgent', this.props.currentOnlineAgent);
+    const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && 'online');
     return (
       <div className="chat-container">
-        <div className="open-chat-button" onClick={this.toggleChatWindow}></div>
+        <div className="open-chat-button" onClick={this.toggleChatWindow}>
+            <div className={onlineOrOfflineAgent}></div>
+        </div>
 
       	<div className={`chat-window ${isChatWindowOpen ? 'visible' : ''}`}>
           <div className="chat-header">צ׳אט תמיכה</div>

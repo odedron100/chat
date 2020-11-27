@@ -5,8 +5,17 @@ import DBManager from './DBManager';
 
 class SomeWebsite extends Component {
 	state = {
-		owner: DBManager.getCurrentUser()
+		owner: DBManager.getCurrentUser(),
+		currentOnlineAgent: null,
 	}
+
+	componentDidMount() {
+    	const onAgentLogin = (onlineAgent) =>{
+	     	this.setState({currentOnlineAgent: onlineAgent});
+	     	console.log('hay');
+   		}
+   		DBManager.getOnlineAgent(onAgentLogin);
+  	}
 
 	updateCurrentUser = (currentUser) => {
 		DBManager.setCurrentUser(currentUser);
@@ -19,7 +28,7 @@ class SomeWebsite extends Component {
 			<div className="some-website-container">
 				<div className="logo"></div>
 
-        		<Chat updateCurrentUser={this.updateCurrentUser} owner={this.state.owner} />
+        		<Chat updateCurrentUser={this.updateCurrentUser} owner={this.state.owner} currentOnlineAgent={this.state.currentOnlineAgent}/>
 			</div>
 		);
 	}

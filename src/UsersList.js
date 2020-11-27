@@ -82,7 +82,9 @@ class UsersList extends Component {
   }
 
   logOutButton = () =>{
+  	console.log('logout');
   	localStorage.clear('currentAgent');
+  	DBManager.setOnlineAgent(null);
   	this.setState({currentAgent:null}); 
   }
 
@@ -91,6 +93,7 @@ class UsersList extends Component {
 
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent} = this.state;
 		const agent = DBManager.getCurrentAgent();
+					
 						// {!agent && <Redirect to="/agents/login" />}
 			return (
 			<div className="listUsers-container">

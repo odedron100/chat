@@ -21,6 +21,7 @@ const AGENTS_COLLECTION_NAME = 'agents';
 const MESSAGES_COLLECTION_NAME = 'messages';
 const CURRENT_USER = 'currentUser';
 const CURRENT_AGENT = 'currentAgent';
+const ONLINE_AGENT = 'onlineAgent';
 
 class DBManager {
 	static getSingleItem = (itemName) => {
@@ -119,15 +120,27 @@ class DBManager {
 		);
 	}
 
+	// static setOnlineAgent = (email) =>{
+	// 	database.ref(ONLINE_AGENT).set(email).then(() => {
+	// 	});
+	// }
+
+	static setOnlineAgent = (agent) => {
+		return database.ref(ONLINE_AGENT).set(agent);
+	}
+
+	static getOnlineAgent = (onAgentLogin) => {		
+		database.ref(ONLINE_AGENT).on('value', (snap) => {
+			onAgentLogin(
+			 snap.val()
+			); 
+		});
+	}
+
+
 	static createNewAgentUser = (user) => {
 		const {email, fullname, password} = user;
 
-		// console.log('firebase', firebase);
-		// console.log('firebase.auth', firebase.auth);
-		// console.log('firebase.auth()', firebase.auth());
-		// console.log('firebase.auth().createUserWithEmailAndPassword', firebase.auth().createUserWithEmailAndPassword);
-		// const error = (firebase.auth().createUserWithEmailAndPassword);
-		// console.log('error', error);
 		return firebase.auth().createUserWithEmailAndPassword(
 		  email,
 		  password

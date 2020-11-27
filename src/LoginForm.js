@@ -7,7 +7,8 @@ class LoginForm extends Component {
 	state = {
 		email: '',
 		password: '',
-		validationError: null
+		validationError: null,
+		// currentOnlineAgent: null,
 	}
 
 	login = () => {
@@ -21,6 +22,7 @@ class LoginForm extends Component {
 		DBManager.loginWithEmailAndPassword(email, password)
 			.then(() => {
 				this.props.history.push('/users/List');
+				DBManager.setOnlineAgent(email);
 			})
 			.catch(() => {
 				this.setState({validationError:'נסה שוב'});
@@ -35,7 +37,7 @@ class LoginForm extends Component {
 
 	render() {
 		// console.log('this.props', this.props);
-
+		// console.log('this.state.currentOnlineAgent', this.state.currentOnlineAgent);
 		return (
 			<div className="form-container">
 				<div className="title">התחבר באמצעות כתובת המייל שלך</div>

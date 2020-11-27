@@ -130,6 +130,19 @@
   background-position: center;
   background-repeat: no-repeat;
   pointer-events: all;
+  position: relative;
+}
+
+.chat-container .open-chat-button .agent-online-or-offline {
+  border-radius: 50%;
+  padding: 8px;
+  position: absolute;
+  top: 5px;
+  background: red;
+}
+
+.chat-container .open-chat-button .online {
+  background: green;
 }
 
 .chat-container .chat-window .messages-container {
@@ -271,5 +284,4 @@
   padding-right: 10px;
   font-size: 16px;
   margin: auto;
-
 }

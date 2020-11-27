@@ -15,6 +15,7 @@ class RegisterForm extends Component {
 		currentAgent:null,
 	}
 
+
 	createNewAccount = () => {
 		const {
 			firstName,
