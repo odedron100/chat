@@ -7,13 +7,9 @@ class Chat extends Component {
   	isChatWindowOpen: false,
   	valueInput: '',
     messages: [],
-    // onlineAgent:null,
   }
 
   componentDidMount() {
-    // const onAgentLogin = (onlineAgent) =>{
-    //   this.setState({onlineAgent:onlineAgent});
-    // }
     if (this.props.owner) {
       this.registerToNewMessages(this.props.owner.id);
     }
@@ -54,7 +50,8 @@ class Chat extends Component {
           });
         }  
 
-      } else {
+      }
+      else {
         this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
             if (this.state.isChatWindowOpen) {
               this.scrollChatToEnd();
@@ -62,9 +59,12 @@ class Chat extends Component {
           });
         this.setState({owner: this.props.owner});
       }
-    }  else {
-    return ;
+    }  
+    else if (this.state.isChatWindowOpen && this.props.currentOnlineAgent === null) {
+      console.log('this.state.isChatWindowOpen && !this.props.currentOnlineAgent');
+      this.setState({isChatWindowOpen: false});
     }
+   
   }
 
   handleKeyDown = (e) => {
@@ -91,36 +91,59 @@ class Chat extends Component {
         time:time,
         owner:messageOwner
       }
-      // messages.push(newMessage);
-      // this.setState({messages: [...messages, newMessage]});
 
-      
-      console.log('before set messages - owner.id', owner.id);
       DBManager.setMessages(owner.id, [newMessage])
         .then(() => {
           this.registerToNewMessages(owner.id);
         })
         
-    } else {
-      let messageOwner;
+    }
+    else {
+      if (this.props.currentOnlineAgent) {
+        let messageOwner;
 
-      if (this.props.isAgent) {
-        messageOwner = {
-          name: 'Agent'
+        if (this.props.isAgent) {
+          messageOwner = {
+            name: 'Agent'
+          }
+        } else {
+          messageOwner = owner;
         }
-      } else {
-        messageOwner = owner;
+
+        const newMessage = {
+         text: message,
+         time: time,
+         owner: messageOwner,
+        } 
+      
+        
+        DBManager.setMessages(owner.id, [...messages, newMessage]);
       }
 
-      const newMessage = {
-       text: message,
-       time: time,
-       owner: messageOwner,
-      } 
-      // messages.push(newMessage);
-    
-      
-      DBManager.setMessages(owner.id, [...messages, newMessage]);
+      else{
+         let messageOwner;
+
+          if (this.props.isAgent) {
+            messageOwner = {
+              name: 'Agent'
+            }
+          }
+
+          else {
+            messageOwner = owner;
+          }
+
+          const newMessage = {
+           text: message,
+           time: time,
+           owner: messageOwner,
+          } 
+          // messages.push(newMessage);
+        
+          
+          // DBManager.setMessages(owner.id, [...messages, newMessage]);
+          alert('השיחה עם הנציג נגמרה');
+      }    
     }
   }
 
@@ -150,8 +173,9 @@ class Chat extends Component {
 
   render() {
   	const {isChatWindowOpen, messages} = this.state;
-    console.log('messages', messages);
+    // console.log('messages', messages);
     // console.log('this.state.onlineAgent', this.state.onlineAgent);
+    console.log('this.state.isChatWindowOpen', this.state.isChatWindowOpen);
     console.log('this.props.currentOnlineAgent', this.props.currentOnlineAgent);
     const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && 'online');
     return (

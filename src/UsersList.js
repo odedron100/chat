@@ -122,7 +122,7 @@ class UsersList extends Component {
 									)
 								
 							})}
-							{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages}/>}
+							{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages} currentOnlineAgent={true}/>}
 
 						</div>}
 					</div>

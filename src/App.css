@@ -135,14 +135,13 @@
 
 .chat-container .open-chat-button .agent-online-or-offline {
   border-radius: 50%;
-  padding: 8px;
+  padding: 47px;
   position: absolute;
-  top: 5px;
-  background: red;
+  border: 3px solid red;
 }
 
 .chat-container .open-chat-button .online {
-  background: green;
+  border: 3px solid green;
 }
 
 .chat-container .chat-window .messages-container {
