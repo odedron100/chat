@@ -18,7 +18,6 @@ class UsersList extends Component {
 	componentDidMount() {
 		console.log('here');
 		const currentAgent = DBManager.getCurrentAgent();
-		// console.log('currentAgent', currentAgent);
 		if (currentAgent) {
 			this.setState({currentAgent});
 		}

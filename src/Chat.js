@@ -29,6 +29,10 @@ class Chat extends Component {
   }
 
   toggleChatWindow = () => {
+    if (!this.props.currentOnlineAgent) {
+      alert('אנא המתן לנציג צאט שהתפנה');
+    }
+
     if (this.props.currentOnlineAgent) {
       if (!this.state.isChatWindowOpen && !this.props.owner) {
         const userName = prompt("Please enter your name");
