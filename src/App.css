@@ -260,6 +260,16 @@
   text-align: center;
 }
 
+.online-message {
+  position: absolute;
+  top: 8px;
+}
+
+.offline-message {
+  position: absolute;
+  top: 8px;
+}
+
 @keyframes loading {
   0% {
     transform: scale(1);

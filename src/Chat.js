@@ -177,14 +177,12 @@ class Chat extends Component {
 
   render() {
   	const {isChatWindowOpen, messages} = this.state;
-    // console.log('messages', messages);
-    // console.log('this.state.onlineAgent', this.state.onlineAgent);
-    console.log('this.state.isChatWindowOpen', this.state.isChatWindowOpen);
-    console.log('this.props.currentOnlineAgent', this.props.currentOnlineAgent);
     const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && 'online');
     return (
       <div className="chat-container">
         <div className="open-chat-button" onClick={this.toggleChatWindow}>
+           {this.props.currentOnlineAgent && <div className="online-message"> online</div>}
+            {!this.props.currentOnlineAgent && <div className="offline-message">offline</div>}
             <div className={onlineOrOfflineAgent}></div>
         </div>
 
