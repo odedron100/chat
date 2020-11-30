@@ -33,11 +33,12 @@ class DBManager {
 	}
 
 
-	static getUsers = () => {	
-		const promise = database.ref(USERS_COLLECTION_NAME).once('value').then((snap) => {
-			return snap.val();
-		})
-		return promise;
+	static getUsers = (onNewUserAdded) => {	
+		database.ref(USERS_COLLECTION_NAME).on('value', (snap) => {
+			onNewUserAdded(
+				snap.val()
+			);
+		});	
 	}
 
 	static getUser = (id) => {
@@ -54,8 +55,7 @@ class DBManager {
 	}
 
 	static setUsers = (users) => {
-		database.ref(USERS_COLLECTION_NAME).set(users).then(() => {
-		});
+		return database.ref(USERS_COLLECTION_NAME).set(users);
 	}
 
 	static createNewUser = (user) => {

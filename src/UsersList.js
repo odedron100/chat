@@ -23,26 +23,28 @@ class UsersList extends Component {
 		}
 		
 		this.setState({isloading: true});
-	    DBManager.getUsers().then((users) => {
-	      this.setState({users});
-		  this.setState({isloading: false});
-		  this.originalUsersObject = users;
-			if (users) {
-				Object.keys(users).forEach(currentKey => {
-			  		const onNewMessageAdded = (messagesFromServer) => {
-	      
-	     					const messages = {
-	     						...this.state.messages,
-	     						[currentKey]:messagesFromServer || []
-	     					};
+	    const onNewUserAdded = (users) =>{
+	    	this.setState({users});
+	      	this.setState({users});
+		  	this.setState({isloading: false});
+		  	this.originalUsersObject = users;
+				if (users) {
+					Object.keys(users).forEach(currentKey => {
+				  		const onNewMessageAdded = (messagesFromServer) => {
+		      
+		     					const messages = {
+		     						...this.state.messages,
+		     						[currentKey]:messagesFromServer || []
+		     					};
 
-	     					this.setState({messages:messages});
-	     				
-	          		}
-	     				DBManager.registerToNewMessages(currentKey,onNewMessageAdded);
-				});	
-			}	
-		});  
+		     					this.setState({messages:messages});
+		     				
+		          		}
+		     				DBManager.registerToNewMessages(currentKey,onNewMessageAdded);
+					});	
+				}
+		}
+		DBManager.getUsers(onNewUserAdded);			 
 
 	}
 

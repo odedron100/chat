@@ -37,6 +37,7 @@ class Chat extends Component {
       if (!this.state.isChatWindowOpen && !this.props.owner) {
         const userName = prompt("Please enter your name");
         if (userName !== null) {
+          DBManager.setUsers(userName);
           const newUser = {
             name: userName,
           }

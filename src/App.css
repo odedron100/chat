@@ -141,7 +141,7 @@
 }
 
 .chat-container .open-chat-button .online {
-  border: 3px solid green;
+  border: 3px solid #7FFF00;
 }
 
 .chat-container .chat-window .messages-container {
