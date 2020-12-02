@@ -13,6 +13,7 @@ class UsersList extends Component {
 		selectedUser: null,
 		messages:{},
 		currentAgent:null,
+		unReadMessages:{},
 	}
 
 	componentDidMount() {
@@ -25,11 +26,11 @@ class UsersList extends Component {
 		this.setState({isloading: true});
 	    const onNewUserAdded = (users) =>{
 	    	this.setState({users});
-	      	this.setState({users});
 		  	this.setState({isloading: false});
 		  	this.originalUsersObject = users;
 				if (users) {
 					Object.keys(users).forEach(currentKey => {
+						this.unReadMessages(currentKey);
 				  		const onNewMessageAdded = (messagesFromServer) => {
 		      
 		     					const messages = {
@@ -46,6 +47,20 @@ class UsersList extends Component {
 		}
 		DBManager.getUsers(onNewUserAdded);			 
 
+	}
+
+	unReadMessages = (ownerId) =>{
+	const onNewMessageAdded = (newUnReadMessages) => {
+      // const isWithAnimation = this.state.messages.length !== 0;
+      // console.log('messagesFromServer', messagesFromServer);
+      const unReadMessages = {
+      	[ownerId]:newUnReadMessages||[]
+      };
+
+      this.setState({unReadMessages: unReadMessages || []});
+    }
+
+    DBManager.getUnReadMessages(ownerId, onNewMessageAdded);
 	}
 
 	 handleChange = (e) => {
@@ -71,7 +86,7 @@ class UsersList extends Component {
 
 
   onUserClicked = (key) =>{
-  	const {users} = this.state;
+  	const {users,messages} = this.state;
   	const currentUser = {
   		name: users[key].name,
   		id: key
@@ -80,6 +95,9 @@ class UsersList extends Component {
   	this.setState({selectedUser: null}, () => {
       this.setState({selectedUser:currentUser})
     });
+
+     DBManager.setUnReadMessages(key,[]);
+
   }
 
   logOutButton = () =>{
@@ -89,13 +107,19 @@ class UsersList extends Component {
   	this.setState({currentAgent:null}); 
   }
 
-	render() {
-		console.log('this.props', this.props);
+  // unreadMessages = (key) =>{
+  // 	const {messages} = this.state;
 
-		const {users, isloading,valueInput,selectedUser, messages,currentAgent} = this.state;
+  // 	console.log('messages[key]', messages[key]);
+  // }
+
+	render() {
+		// console.log('this.props', this.props);
+
+		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages} = this.state;
+
 		const agent = DBManager.getCurrentAgent();
 					
-						// {!agent && <Redirect to="/agents/login" />}
 			return (
 			<div className="listUsers-container">
 				{isloading ?
@@ -109,10 +133,22 @@ class UsersList extends Component {
 						{users && <div className="list-container">
 							{Object.keys(users).map((key, index) => {
 								const item = users[key];
+								if (unReadMessages[key]) {	
+									console.log('unReadMessages[key].length', unReadMessages[key].length);
+								}	
+								let messagesClass = '';
+
+								if (unReadMessages[key]) {
+									 messagesClass = 'messages-number ' + (this.state.unReadMessages[key].length > 0 && 'unReadMessages');
+								}
+								else{
+									messagesClass = 'messages-number';
+								}	
+
 								
 									return(
-										<div className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}  onClick={()=>this.onUserClicked(key)}>
-										{messages[key] && <div className="messages-number">{messages[key].length} </div>}
+										<div className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}  onClick={()=>this.onUserClicked(key)} >
+										{messages[key] && <div className={messagesClass}>{messages[key].length} </div>}
 											<div className="user-details-container">
 												<div className="name">{item.name}</div>
 												<span className="all-Item">

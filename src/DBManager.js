@@ -22,6 +22,7 @@ const MESSAGES_COLLECTION_NAME = 'messages';
 const CURRENT_USER = 'currentUser';
 const CURRENT_AGENT = 'currentAgent';
 const ONLINE_AGENT = 'onlineAgent';
+const UN_READ_MESSAGES = 'unReadMessages';
 
 class DBManager {
 	static getSingleItem = (itemName) => {
@@ -86,15 +87,21 @@ class DBManager {
 		});
 	}
 
-	// static getMessages = (userId) => {
-	// 	const promise = database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).once('value').then((snap) => {
-	// 		return snap.val();
-	// 	})
-	// 	return promise;
-	// }
-
 	static setMessages = (userId, messages) => {
 		return database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).set(messages);
+	}
+
+	static setUnReadMessages = (userId, messages) => {
+		return database.ref(`chats/${userId}/${UN_READ_MESSAGES}`).set(messages);
+	}
+
+	static getUnReadMessages = (userId, onNewMessageAdded) => {
+		// console.log('register....', `chats/${userId}/${MESSAGES_COLLECTION_NAME}`);
+		database.ref(`chats/${userId}/${UN_READ_MESSAGES}`).on('value', (snap) => {
+			onNewMessageAdded(
+					snap.val()
+				);
+		});
 	}
 
 	static getCurrentUser = () => {

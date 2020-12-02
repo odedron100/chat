@@ -7,6 +7,7 @@ class Chat extends Component {
   	isChatWindowOpen: false,
   	valueInput: '',
     messages: [],
+    unReadMessages:{},
   }
 
   componentDidMount() {
@@ -18,7 +19,7 @@ class Chat extends Component {
   registerToNewMessages = (ownerId) => {
     const onNewMessageAdded = (messagesFromServer) => {
       const isWithAnimation = this.state.messages.length !== 0;
-      console.log('messagesFromServer', messagesFromServer);
+      // console.log('messagesFromServer', messagesFromServer);
 
       this.setState({messages: messagesFromServer || []}, () => {
         this.scrollChatToEnd(isWithAnimation);
@@ -81,6 +82,7 @@ class Chat extends Component {
   addNewMessage = (message) => {
     const {owner} = this.state;
   	const {messages} = this.state;
+    const {unreadMessages} = this.state;
     const time = (new Date()).toISOString();
 
     if (messages.length === 0) {
@@ -119,9 +121,19 @@ class Chat extends Component {
          time: time,
          owner: messageOwner,
         } 
+        // console.log('messageOwner', messageOwner);
       
         
         DBManager.setMessages(owner.id, [...messages, newMessage]);
+        DBManager.setUnReadMessages(owner.id,[...messages,newMessage]);
+        if (messageOwner.name !== 'Agent') {
+          const newUnReadMessage = {
+              ...this.state.unReadMessages,
+              [messageOwner.name]:message || []
+          };
+
+        this.setState({unReadMessages:newUnReadMessage});
+        }  
       }
 
       else{
@@ -176,7 +188,9 @@ class Chat extends Component {
 
 
   render() {
-  	const {isChatWindowOpen, messages} = this.state;
+    // console.log('this.props.owner.id', this.props.owner.id);
+  	const {isChatWindowOpen, messages,unReadMessages} = this.state;
+    console.log('unReadMessages', unReadMessages);
     const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && 'online');
     return (
       <div className="chat-container">

@@ -163,6 +163,10 @@
 	 animation: no-users 0.75s ease-in-out infinite;
 }	
 
+.unReadMessages{
+	border:solid red 3px;
+}
+
 
 @keyframes no-users {
   0% {
