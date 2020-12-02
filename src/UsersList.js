@@ -51,9 +51,8 @@ class UsersList extends Component {
 
 	unReadMessages = (ownerId) =>{
 	const onNewMessageAdded = (newUnReadMessages) => {
-      // const isWithAnimation = this.state.messages.length !== 0;
-      // console.log('messagesFromServer', messagesFromServer);
       const unReadMessages = {
+      	...this.state.unReadMessages,
       	[ownerId]:newUnReadMessages||[]
       };
 
@@ -114,7 +113,7 @@ class UsersList extends Component {
   // }
 
 	render() {
-		// console.log('this.props', this.props);
+		// console.log('this.props.isChatWindowOpen', this.props.isChatWindowOpen);
 
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages} = this.state;
 
@@ -134,7 +133,7 @@ class UsersList extends Component {
 							{Object.keys(users).map((key, index) => {
 								const item = users[key];
 								if (unReadMessages[key]) {	
-									console.log('unReadMessages[key].length', unReadMessages[key].length);
+									// console.log('unReadMessages[key].length', unReadMessages[key].length);
 								}	
 								let messagesClass = '';
 

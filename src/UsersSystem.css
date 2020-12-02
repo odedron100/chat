@@ -165,8 +165,20 @@
 
 .unReadMessages{
 	border:solid red 3px;
+	animation: un-read-message 0.75s ease-in-out infinite;
 }
 
+@keyframes un-read-message {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
 
 @keyframes no-users {
   0% {
