@@ -125,8 +125,8 @@ class Chat extends Component {
       
         
         DBManager.setMessages(owner.id, [...messages, newMessage]);
-        DBManager.setUnReadMessages(owner.id,[...messages,newMessage]);
         if (messageOwner.name !== 'Agent') {
+        DBManager.setUnReadMessages(owner.id,[...messages,newMessage]);
           const newUnReadMessage = {
               ...this.state.unReadMessages,
               [messageOwner.name]:message || []
@@ -188,7 +188,6 @@ class Chat extends Component {
 
 
   render() {
-    // console.log('this.props.owner.id', this.props.owner.id);
   	const {isChatWindowOpen, messages,unReadMessages} = this.state;
     console.log('unReadMessages', unReadMessages);
     const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && 'online');

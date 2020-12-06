@@ -30,7 +30,8 @@ class UsersList extends Component {
 		  	this.originalUsersObject = users;
 				if (users) {
 					Object.keys(users).forEach(currentKey => {
-						this.unReadMessages(currentKey);
+						this.unReadMessages(currentKey);	
+	  
 				  		const onNewMessageAdded = (messagesFromServer) => {
 		      
 		     					const messages = {
@@ -46,7 +47,6 @@ class UsersList extends Component {
 				}
 		}
 		DBManager.getUsers(onNewUserAdded);			 
-
 	}
 
 	unReadMessages = (ownerId) =>{
@@ -57,9 +57,23 @@ class UsersList extends Component {
       };
 
       this.setState({unReadMessages: unReadMessages || []});
-    }
+      	if (this.state.selectedUser) {
+      		if (ownerId === this.state.selectedUser.id) {
+				this.onUserClicked(this.state.selectedUser.id);
+			}	
+		}	
+    }	
+	    DBManager.getUnReadMessages(ownerId, onNewMessageAdded);
+	    	
+	}
 
-    DBManager.getUnReadMessages(ownerId, onNewMessageAdded);
+	numberOfUnreadMessages = () =>{
+		console.log('numberOfUnreadMessages');
+		const {messages} = this.state;
+		Object.keys(messages).forEach(currentKey => {
+			console.log('currentKey', currentKey);
+			console.log('messages', messages);
+		});	
 	}
 
 	 handleChange = (e) => {
@@ -94,9 +108,8 @@ class UsersList extends Component {
   	this.setState({selectedUser: null}, () => {
       this.setState({selectedUser:currentUser})
     });
-
-     DBManager.setUnReadMessages(key,[]);
-
+    
+    DBManager.setUnReadMessages(key,[]);    	
   }
 
   logOutButton = () =>{
@@ -106,19 +119,15 @@ class UsersList extends Component {
   	this.setState({currentAgent:null}); 
   }
 
-  // unreadMessages = (key) =>{
-  // 	const {messages} = this.state;
-
-  // 	console.log('messages[key]', messages[key]);
-  // }
 
 	render() {
-		// console.log('this.props.isChatWindowOpen', this.props.isChatWindowOpen);
 
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages} = this.state;
 
 		const agent = DBManager.getCurrentAgent();
-					
+		if (selectedUser) {
+			console.log('selectedUser', selectedUser.id);
+		}			
 			return (
 			<div className="listUsers-container">
 				{isloading ?
@@ -131,10 +140,13 @@ class UsersList extends Component {
 						{!users && <div className="no-users">אין משתמשים פעילים</div>}
 						{users && <div className="list-container">
 							{Object.keys(users).map((key, index) => {
+								if (messages[key]) {
+									// console.log('messages[key][0].owner', messages[key][0].owner);
+								}
 								const item = users[key];
-								if (unReadMessages[key]) {	
-									// console.log('unReadMessages[key].length', unReadMessages[key].length);
-								}	
+								// if (unReadMessages[key]) {	
+								// 	// console.log('unReadMessages[key].length', unReadMessages[key].length);
+								// }	
 								let messagesClass = '';
 
 								if (unReadMessages[key]) {
