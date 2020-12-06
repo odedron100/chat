@@ -14,6 +14,10 @@ class Chat extends Component {
     if (this.props.owner) {
       this.registerToNewMessages(this.props.owner.id);
     }
+
+    if (this.props.shouldStartOpen) {
+      this.setState({isChatWindowOpen: true});
+    }
   }
 
   registerToNewMessages = (ownerId) => {
@@ -30,57 +34,60 @@ class Chat extends Component {
   }
 
   toggleChatWindow = () => {
-    if (!this.props.currentOnlineAgent) {
-      alert('אנא המתן לנציג צאט שהתפנה');
+    console.log('toggle started');
+    if (this.state.isChatWindowOpen && this.props.currentOnlineAgent === null) {
+      return this.setState({isChatWindowOpen: false});
+    } else if (!this.props.currentOnlineAgent) {
+      return alert('אנא המתן לנציג צאט שהתפנה');
     }
 
-    if (this.props.currentOnlineAgent) {
-      if (!this.state.isChatWindowOpen && !this.props.owner) {
-        const userName = prompt("Please enter your name");
-        if (userName !== null) {
-          const newUser = {
-            name: userName,
-          }
-        	this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
-            if (this.state.isChatWindowOpen) {
-              this.scrollChatToEnd();
-            }
-          });
+    let userName;
 
-          DBManager.createNewUser(newUser).then(user => {
-            this.props.updateCurrentUser(user);
-            this.setState({owner: user}, () => {
-              this.addNewMessage(`?שלום ${userName}, איך אפשר לעזור`);
-            });
-          });
-        }  
-
-      }
-      else {
-        this.setState({isChatWindowOpen: !this.state.isChatWindowOpen}, () => {
-            if (this.state.isChatWindowOpen) {
-              this.scrollChatToEnd();
-            }
-          });
-        this.setState({owner: this.props.owner});
-      }
-    }  
-    else if (this.state.isChatWindowOpen && this.props.currentOnlineAgent === null) {
-      console.log('this.state.isChatWindowOpen && !this.props.currentOnlineAgent');
-      this.setState({isChatWindowOpen: false});
+    console.log('this.props.owner', this.props.owner);
+    if (!this.state.isChatWindowOpen && !this.props.owner) {
+      userName = prompt("Please enter your name");  
     }
-   
+    else if (!this.state.isChatWindowOpen && this.props.owner) {
+      return this.setState({isChatWindowOpen: true});
+    }
+    else {
+      this.setState({isChatWindowOpen: false}, () => {
+          // if (this.state.isChatWindowOpen) {
+          //   this.scrollChatToEnd();
+          // }
+        });
+      return this.setState({owner: this.props.owner});
+    }
+
+    if (userName !== null) {
+      const newUser = {
+        name: userName,
+      }
+      this.setState({isChatWindowOpen: true}, () => {
+          this.scrollChatToEnd();
+      });
+
+      console.log('newUser', newUser);
+
+      DBManager.createNewUser(newUser).then(user => {
+        this.props.updateCurrentUser(user);
+        this.setState({owner: user}, () => {
+          this.addNewMessage(`?שלום ${userName}, איך אפשר לעזור`);
+        });
+      });
+    }
   }
 
   handleKeyDown = (e) => {
   	if (e.keyCode === 13 && e.target.value !== '') {
+      e.preventDefault();
       this.addNewMessage(this.inputValueElement.innerText);
       this.inputValueElement.innerHTML = '';
   	}
   }
 
   addNewMessage = (message) => {
-    const {owner} = this.state;
+    const {owner} = this.props;
   	const {messages} = this.state;
     const {unreadMessages} = this.state;
     const time = (new Date()).toISOString();
@@ -123,7 +130,7 @@ class Chat extends Component {
         } 
         // console.log('messageOwner', messageOwner);
       
-        
+        // console.log('owner.id', owner.id);
         DBManager.setMessages(owner.id, [...messages, newMessage]);
         if (messageOwner.name !== 'Agent') {
         DBManager.setUnReadMessages(owner.id,[...messages,newMessage]);
@@ -188,6 +195,8 @@ class Chat extends Component {
 
 
   render() {
+    // const owner = this.state;
+    // console.log('owner.id', this.props.owner.id);
   	const {isChatWindowOpen, messages,unReadMessages} = this.state;
     console.log('unReadMessages', unReadMessages);
     const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && 'online');

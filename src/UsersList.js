@@ -57,11 +57,10 @@ class UsersList extends Component {
       };
 
       this.setState({unReadMessages: unReadMessages || []});
-      	if (this.state.selectedUser) {
-      		if (ownerId === this.state.selectedUser.id) {
-				this.onUserClicked(this.state.selectedUser.id);
-			}	
-		}	
+      	const {selectedUser} = this.state;
+      	if (selectedUser && selectedUser.id === ownerId) {
+			this.onUserClicked(selectedUser.id);
+		}
     }	
 	    DBManager.getUnReadMessages(ownerId, onNewMessageAdded);
 	    	
@@ -154,23 +153,22 @@ class UsersList extends Component {
 								}
 								else{
 									messagesClass = 'messages-number';
-								}	
-
+								}
 								
-									return(
-										<div className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}  onClick={()=>this.onUserClicked(key)} >
-										{messages[key] && <div className={messagesClass}>{messages[key].length} </div>}
-											<div className="user-details-container">
-												<div className="name">{item.name}</div>
-												<span className="all-Item">
-												</span>
-												
-										    </div>
-										</div>
-									)
-								
+								return (
+									<div className="user-link-container" key={index} style={{backgroundImage: `url(https://randomuser.me/api/portraits/men/${index + 1}.jpg)`}}  onClick={()=>this.onUserClicked(key)} >
+									{messages[key] && <div className={messagesClass}>{messages[key].length} </div>}
+										<div className="user-details-container">
+											<div className="name">{item.name}</div>
+											<span className="all-Item">
+											</span>
+											
+									    </div>
+									</div>
+								)
+								// return <UserLinkContainer ... />
 							})}
-							{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages} currentOnlineAgent={true}/>}
+							{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages} currentOnlineAgent={true} shouldStartOpen={true} />}
 
 						</div>}
 					</div>
