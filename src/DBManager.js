@@ -127,11 +127,6 @@ class DBManager {
 		);
 	}
 
-	// static setOnlineAgent = (email) =>{
-	// 	database.ref(ONLINE_AGENT).set(email).then(() => {
-	// 	});
-	// }
-
 	static setOnlineAgent = (agent) => {
 		return database.ref(ONLINE_AGENT).set(agent);
 	}

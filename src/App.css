@@ -145,7 +145,7 @@
 }
 
 .chat-container .open-chat-button .busy {
-  border: 3px solid orange;
+  border: 3px solid #FFA500;
 }
 
 .chat-container .chat-window .messages-container {

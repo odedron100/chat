@@ -34,7 +34,6 @@ class Chat extends Component {
   }
 
   toggleChatWindow = () => {
-    console.log('toggle started');
     if (this.state.isChatWindowOpen && this.props.currentOnlineAgent === null) {
       return this.setState({isChatWindowOpen: false});
     } else if (!this.props.currentOnlineAgent) {
@@ -46,7 +45,6 @@ class Chat extends Component {
 
     let userName;
 
-    console.log('this.props.owner', this.props.owner);
     if (!this.state.isChatWindowOpen && !this.props.owner) {
       userName = prompt("Please enter your name");  
     }
@@ -54,11 +52,8 @@ class Chat extends Component {
       return this.setState({isChatWindowOpen: true});
     }
     else {
-      this.setState({isChatWindowOpen: false}, () => {
-          // if (this.state.isChatWindowOpen) {
-          //   this.scrollChatToEnd();
-          // }
-        });
+      this.setState({isChatWindowOpen: false});
+         
       return this.setState({owner: this.props.owner});
     }
 
@@ -70,7 +65,6 @@ class Chat extends Component {
           this.scrollChatToEnd();
       });
 
-      console.log('newUser', newUser);
 
       DBManager.createNewUser(newUser).then(user => {
         this.props.updateCurrentUser(user);
@@ -95,7 +89,7 @@ class Chat extends Component {
     const {unreadMessages} = this.state;
     const time = (new Date()).toISOString();
 
-    if (messages.length === 0) {
+    if (messages.length === 0 || this.props.isAgent) {
       let messageOwner;
 
       messageOwner = {
@@ -108,43 +102,33 @@ class Chat extends Component {
         owner:messageOwner
       }
 
-      DBManager.setMessages(owner.id, [newMessage])
+      DBManager.setMessages(owner.id, [ ...messages, newMessage])
         .then(() => {
           this.registerToNewMessages(owner.id);
         })
         
     }
-    else {
-      if (this.props.currentOnlineAgent) {
+    else if (this.props.currentOnlineAgent) {
         let messageOwner;
 
-        if (this.props.isAgent) {
-          messageOwner = {
-            name: 'Agent'
-          }
-        } else {
           messageOwner = owner;
-        }
 
         const newMessage = {
          text: message,
          time: time,
          owner: messageOwner,
         } 
-        // console.log('messageOwner', messageOwner);
-      
-        // console.log('owner.id', owner.id);
+
         DBManager.setMessages(owner.id, [...messages, newMessage]);
-        if (messageOwner.name !== 'Agent') {
         DBManager.setUnReadMessages(owner.id,[...messages,newMessage]);
           const newUnReadMessage = {
               ...this.state.unReadMessages,
               [messageOwner.name]:message || []
           };
 
-        this.setState({unReadMessages:newUnReadMessage});
-        }  
-      }
+        this.setState({unReadMessages:newUnReadMessage});        
+    }
+
 
       else{
          let messageOwner;
@@ -164,13 +148,9 @@ class Chat extends Component {
            time: time,
            owner: messageOwner,
           } 
-          // messages.push(newMessage);
-        
-          
-          // DBManager.setMessages(owner.id, [...messages, newMessage]);
+
           alert('השיחה עם הנציג נגמרה');
-      }    
-    }
+      }        
   }
 
   inputValueRef = (inputValueElement) => {
@@ -198,12 +178,11 @@ class Chat extends Component {
 
 
   render() {
-    // const owner = this.state;
-    // console.log('owner.id', this.props.owner.id);
   	const {isChatWindowOpen, messages,unReadMessages} = this.state;
-    console.log('this.props.currentOnlineAgent', this.props.currentOnlineAgent);
-    const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && this.props.currentOnlineAgent !== 'busy' && 'online' 
+    const onlineOrOfflineAgent = 'agent-online-or-offline ' + 
+    (this.props.currentOnlineAgent && this.props.currentOnlineAgent !== 'busy' && 'online' 
       || this.props.currentOnlineAgent === 'busy' && 'busy');
+    
     return (
       <div className="chat-container">
         <div className="open-chat-button" onClick={this.toggleChatWindow}>
