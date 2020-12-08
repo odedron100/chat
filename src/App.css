@@ -144,6 +144,10 @@
   border: 3px solid #7FFF00;
 }
 
+.chat-container .open-chat-button .busy {
+  border: 3px solid orange;
+}
+
 .chat-container .chat-window .messages-container {
   height: 350px;
   border: 1px solid #ccc;
@@ -266,6 +270,11 @@
 }
 
 .offline-message {
+  position: absolute;
+  top: 8px;
+}
+
+.busy-message {
   position: absolute;
   top: 8px;
 }

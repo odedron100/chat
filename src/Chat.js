@@ -39,7 +39,10 @@ class Chat extends Component {
       return this.setState({isChatWindowOpen: false});
     } else if (!this.props.currentOnlineAgent) {
       return alert('אנא המתן לנציג צאט שהתפנה');
+    }else if (this.props.currentOnlineAgent === 'busy'){
+      return alert ('נציג מיד התפנה');
     }
+
 
     let userName;
 
@@ -198,13 +201,15 @@ class Chat extends Component {
     // const owner = this.state;
     // console.log('owner.id', this.props.owner.id);
   	const {isChatWindowOpen, messages,unReadMessages} = this.state;
-    console.log('unReadMessages', unReadMessages);
-    const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && 'online');
+    console.log('this.props.currentOnlineAgent', this.props.currentOnlineAgent);
+    const onlineOrOfflineAgent = 'agent-online-or-offline ' + (this.props.currentOnlineAgent && this.props.currentOnlineAgent !== 'busy' && 'online' 
+      || this.props.currentOnlineAgent === 'busy' && 'busy');
     return (
       <div className="chat-container">
         <div className="open-chat-button" onClick={this.toggleChatWindow}>
-           {this.props.currentOnlineAgent && <div className="online-message"> online</div>}
+           {this.props.currentOnlineAgent && this.props.currentOnlineAgent !== 'busy' && <div className="online-message"> online</div>}
             {!this.props.currentOnlineAgent && <div className="offline-message">offline</div>}
+            {this.props.currentOnlineAgent === 'busy' && <div className="busy-message">busy</div>}
             <div className={onlineOrOfflineAgent}></div>
         </div>
 

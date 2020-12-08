@@ -12,8 +12,8 @@ class SomeWebsite extends Component {
 	componentDidMount() {
     	const onAgentLogin = (onlineAgent) =>{
 	     	this.setState({currentOnlineAgent: onlineAgent});
-	     	console.log('hay');
    		}
+   		
    		DBManager.getOnlineAgent(onAgentLogin);
   	}
 

@@ -17,7 +17,8 @@ class UsersList extends Component {
 	}
 
 	componentDidMount() {
-		console.log('here');
+		DBManager.setOnlineAgent('online');
+		this.handleWindowClose();
 		const currentAgent = DBManager.getCurrentAgent();
 		if (currentAgent) {
 			this.setState({currentAgent});
@@ -118,9 +119,20 @@ class UsersList extends Component {
   	this.setState({currentAgent:null}); 
   }
 
+  handleWindowClose = () => {
+  	  window.addEventListener("beforeunload", (ev) => {
+        ev.preventDefault();
+        return this.doSomethingBeforeUnload();
+      });
+  }
 
+
+  doSomethingBeforeUnload = () =>{
+  	DBManager.setOnlineAgent('busy');
+  }
+
+ 
 	render() {
-
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages} = this.state;
 
 		const agent = DBManager.getCurrentAgent();
