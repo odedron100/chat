@@ -23,7 +23,6 @@ class Chat extends Component {
   registerToNewMessages = (ownerId) => {
     const onNewMessageAdded = (messagesFromServer) => {
       const isWithAnimation = this.state.messages.length !== 0;
-      // console.log('messagesFromServer', messagesFromServer);
 
       this.setState({messages: messagesFromServer || []}, () => {
         this.scrollChatToEnd(isWithAnimation);
@@ -178,7 +177,12 @@ class Chat extends Component {
 
 
   render() {
-  	const {isChatWindowOpen, messages,unReadMessages} = this.state;
+  	const {
+        isChatWindowOpen,
+        messages,
+        unReadMessages
+    } = this.state;
+    
     const onlineOrOfflineAgent = 'agent-online-or-offline ' + 
     (this.props.currentOnlineAgent && this.props.currentOnlineAgent !== 'busy' && 'online' 
       || this.props.currentOnlineAgent === 'busy' && 'busy');

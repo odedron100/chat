@@ -23,7 +23,6 @@ class SomeWebsite extends Component {
 	}
 
 	render() {
-		console.log('this.state.owner', this.state.owner);
 		return (
 			<div className="some-website-container">
 				<div className="logo"></div>
