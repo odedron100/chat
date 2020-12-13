@@ -10,6 +10,14 @@ class LoginForm extends Component {
 		validationError: null,
 	}
 
+	componentDidMount() {
+		window.addEventListener('keydown', (e) => {
+		  if (e.keyCode === 13) {
+		  	this.login();
+		  }
+		});
+	}	
+
 	login = () => {
 		console.log('login clicked!');
 		const {email, password} = this.state;

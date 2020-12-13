@@ -15,6 +15,14 @@ class RegisterForm extends Component {
 		currentAgent:null,
 	}
 
+	componentDidMount() {
+		window.addEventListener('keydown', (e) => {
+		  if (e.keyCode === 13) {
+		  	this.createNewAccount();
+		  }
+		});
+	}	
+
 
 	createNewAccount = () => {
 		const {

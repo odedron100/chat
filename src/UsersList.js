@@ -68,14 +68,14 @@ class UsersList extends Component {
 	    	
 	}
 
-	numberOfUnreadMessages = () =>{
-		console.log('numberOfUnreadMessages');
-		const {messages} = this.state;
-		Object.keys(messages).forEach(currentKey => {
-			console.log('currentKey', currentKey);
-			console.log('messages', messages);
-		});	
-	}
+	// numberOfUnreadMessages = () =>{
+	// 	console.log('numberOfUnreadMessages');
+	// 	const {messages} = this.state;
+	// 	Object.keys(messages).forEach(currentKey => {
+	// 		console.log('currentKey', currentKey);
+	// 		console.log('messages', messages);
+	// 	});	
+	// }
 
 	 handleChange = (e) => {
 		this.setState({valueInput: e.target.value});
@@ -137,9 +137,9 @@ class UsersList extends Component {
 		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages} = this.state;
 
 		const agent = DBManager.getCurrentAgent();
-		if (selectedUser) {
-			console.log('selectedUser', selectedUser.id);
-		}		
+		// if (selectedUser) {
+		// 	console.log('selectedUser', selectedUser.id);
+		// }		
 
 		return (
 			<div className="listUsers-container">
