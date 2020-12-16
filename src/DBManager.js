@@ -104,6 +104,26 @@ class DBManager {
 		});
 	}
 
+	static getIsUserLoggedIn = (callback) => {
+		firebase.auth().onAuthStateChanged(callback);
+		// https://firebase.google.com/docs/auth/web/manage-users
+		// firebase.auth().onAuthStateChanged(function(user) {
+		//   if (user) {
+		//     // User is signed in.
+		//   } else {
+		//     // No user is signed in.
+		//   }
+		// });
+	}
+
+	// DBManager.getIsUserLoggedIn((user) => {
+	// 	if (user) {
+	// 		// DBManager.getUser(user.id.....)
+	// 	} else {
+	// 		// Redurect to login
+	// 	}
+	// })
+
 	static getCurrentUser = () => {
 		return DBManager.getSingleItem(CURRENT_USER);
 	}
@@ -139,14 +159,21 @@ class DBManager {
 		});
 	}
 
+	static getAgent = (agentEmail) => {
+		// get all agents ->
+		// return agents.find(agent.email === agentEmail)
+	}
 
-	static createNewAgentUser = (user) => {
-		const {email, fullname, password} = user;
+
+	static createNewAgentUser = (agent) => {
+		const {email, fullname, password} = agent;
 
 		return firebase.auth().createUserWithEmailAndPassword(
 		  email,
 		  password
-		)
+		).then(() => {
+			database.ref('agents').push({email, fullname});
+		})
 		  .catch(function(error) {
 		    console.log('Error creating new user:', error.cose);
 		    console.log(error);

@@ -147,7 +147,8 @@ class UsersList extends Component {
 					<Loading text="טוען משתמשים..." />
 					:
 					<>					
-						<UsersListAndSearch users={this.state.users} unReadMessages={this.state.unReadMessages} messages={this.state.messages} valueInput={this.state.valueInput} currentAgent={this.state.currentAgent} onUserClicked={this.onUserClicked} handleChange={this.handleChange}
+						<UsersListAndSearch users={this.state.users} unReadMessages={this.state.unReadMessages} messages={this.state.messages} valueInput={this.state.valueInput}
+						 currentAgent={this.state.currentAgent} onUserClicked={this.onUserClicked} handleChange={this.handleChange} logOutButton={this.logOutButton}
 						/>
 						{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages} currentOnlineAgent={true} shouldStartOpen={true} />}
 					</>
