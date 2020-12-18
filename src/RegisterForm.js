@@ -55,6 +55,7 @@ class RegisterForm extends Component {
 			password: password
 		}
 
+		// DBManager.setNameByEmail(email,firstName);
 		DBManager.setCurrentAgent(user);
 		this.setState({currentAgent:user});
 

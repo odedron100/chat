@@ -3,6 +3,7 @@ import {Route} from "react-router-dom";
 
 import LoginForm from './LoginForm';
 import RegisterForm from './RegisterForm';
+import DBManager from './DBManager';
 
 class AgentSystem extends Component {
 	state = {
@@ -10,15 +11,20 @@ class AgentSystem extends Component {
 	}
 
 	componentDidMount() {
-		DBManager.getIsUserLoggedIn((agent) => {
-			if (agent) {
-				// DBManager.getAgent(agent.email).then(agent => {
-				// 	 this.setState({agent});
-				// })
-			} else {
-				// redeirect to login.
-			}
-		});
+		console.log('componentDidMount');
+		DBManager.getCurrentAgent().then(currentAgent => {
+			console.log('currentAgent', currentAgent);
+		})
+
+		// DBManager.getIsAgentLoggedIn((agent) => {
+		// 	if (agent) {
+		// 		// DBManager.getAgent(agent.email).then(agent => {
+		// 		// 	 this.setState({agent});
+		// 		// })
+		// 	} else {
+		// 		// redeirect to login.
+		// 	}
+		// });
 	}
 
 	render() {

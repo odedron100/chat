@@ -158,6 +158,17 @@
 	transform: scale(1.2);
 }	
 
+.users-system-container .header .hello-user-message{
+	position: absolute;
+	right: 10px;
+}	
+
+.users-system-container .header .logout-button{
+	position: absolute;
+	left: 10px;
+	cursor: pointer;
+}	
+
 .no-users{
 	text-align: center;
 	font-size: 30px;

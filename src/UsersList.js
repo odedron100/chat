@@ -15,15 +15,24 @@ class UsersList extends Component {
 		messages:{},
 		currentAgent:null,
 		unReadMessages:{},
+		agents:null,
 	}
 
 	componentDidMount() {
+		// DBManager.getAgents().then(agents =>{
+		// 	this.setState({agents});
+		// });
+		
+
+		// DBManager.getIsAgentLoggedIn(callBack);
+			
+
 		DBManager.setOnlineAgent('online');
 		this.handleWindowClose();
-		const currentAgent = DBManager.getCurrentAgent();
-		if (currentAgent) {
-			this.setState({currentAgent});
-		}
+		// const currentAgent = DBManager.getCurrentAgent();
+		// if (currentAgent) {
+		// 	this.setState({currentAgent});
+		// }
 		
 		this.setState({isloading: true});
 	    const onNewUserAdded = (users) =>{
@@ -113,7 +122,7 @@ class UsersList extends Component {
     DBManager.setUnReadMessages(key,[]);    	
   }
 
-  logOutButton = () =>{
+  logoutUser = () =>{
   	console.log('logout');
   	localStorage.clear('currentAgent');
   	DBManager.setOnlineAgent(null);
@@ -134,9 +143,9 @@ class UsersList extends Component {
 
  
 	render() {
-		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages} = this.state;
-
-		const agent = DBManager.getCurrentAgent();
+		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages,agents} = this.state;
+		console.log('agents', agents);
+		// const agent = DBManager.getCurrentAgent();
 		// if (selectedUser) {
 		// 	console.log('selectedUser', selectedUser.id);
 		// }		
@@ -148,7 +157,7 @@ class UsersList extends Component {
 					:
 					<>					
 						<UsersListAndSearch users={this.state.users} unReadMessages={this.state.unReadMessages} messages={this.state.messages} valueInput={this.state.valueInput}
-						 currentAgent={this.state.currentAgent} onUserClicked={this.onUserClicked} handleChange={this.handleChange} logOutButton={this.logOutButton}
+						 currentAgent={this.state.currentAgent} onUserClicked={this.onUserClicked} handleChange={this.handleChange} logoutUser={this.logoutUser}
 						/>
 						{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages} currentOnlineAgent={true} shouldStartOpen={true} />}
 					</>

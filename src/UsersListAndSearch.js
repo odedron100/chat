@@ -15,12 +15,12 @@ class UsersListAndSearch extends Component {
 			valueInput
 		} = this.props;
 
-		console.log('users', users);
+		// console.log('users', users);
 
 		return(
 			<div className="users-list">
 				{currentAgent && <div className="agent-name">{` שלום, ${currentAgent.fullName} `}</div>}
-				<div className="log-out-button" onClick={this.props.logOutButton}>התנתק</div>
+				<div className="log-out-button" onClick={this.props.logoutUser}>התנתק</div>
 				<input 
 					className="list-input"
 					placeholder="חפש משתמשים"

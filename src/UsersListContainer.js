@@ -11,7 +11,7 @@ class UsersListContainer extends Component {
 			messages
 		} = this.props;
 			
-		console.log('unReadMessages', unReadMessages);
+		// console.log('unReadMessages', unReadMessages);
 		return(
 			Object.keys(users).map((user, index) => {
 				const item = users[user];

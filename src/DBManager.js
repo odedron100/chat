@@ -70,13 +70,13 @@ class DBManager {
 
 	}
 
-	static getAgents = () => {
-		return DBManager.getFromCollection(AGENTS_COLLECTION_NAME);
-	}
-
-	static setAgents = (somethingToWrite) => {
-		DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
-	}
+// 	static getAgents = () => {
+// 		return DBManager.getFromCollection(AGENTS_COLLECTION_NAME);
+// 	}
+// 
+// 	static setAgents = (somethingToWrite) => {
+// 		DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
+// 	}
 
 	static registerToNewMessages = (userId, onNewMessageAdded) => {
 		// console.log('register....', `chats/${userId}/${MESSAGES_COLLECTION_NAME}`);
@@ -104,33 +104,30 @@ class DBManager {
 		});
 	}
 
-	static getIsUserLoggedIn = (callback) => {
-		firebase.auth().onAuthStateChanged(callback);
+	static setIsAgentLoggedIn = (agent) =>{
+		return database.ref(AGENTS_COLLECTION_NAME).set(agent);
+	}
+	
+
+	static getIsAgentLoggedIn = (callback) => {
 		// https://firebase.google.com/docs/auth/web/manage-users
 		// firebase.auth().onAuthStateChanged(function(user) {
-		//   if (user) {
-		//     // User is signed in.
-		//   } else {
-		//     // No user is signed in.
-		//   }
+		// 	if (user) {
+		// 	// User is signed in.
+		// 	} else {
+		// 	// No user is signed in.
+		// 	}
 		// });
-	}
-
-	// DBManager.getIsUserLoggedIn((user) => {
-	// 	if (user) {
-	// 		// DBManager.getUser(user.id.....)
-	// 	} else {
-	// 		// Redurect to login
-	// 	}
-	// })
+		firebase.auth().onAuthStateChanged(callback);
+	}	
 
 	static getCurrentUser = () => {
 		return DBManager.getSingleItem(CURRENT_USER);
 	}
 
-	static getCurrentAgent = () => {
-		return DBManager.getSingleItem(CURRENT_AGENT);
-	}
+	// static getCurrentAgent = () => {
+	// 	return DBManager.getSingleItem(CURRENT_AGENT);
+	// }
 
 	static setCurrentUser = (newUser) => {
 		DBManager.setSingleItem(CURRENT_USER, newUser);
@@ -159,9 +156,22 @@ class DBManager {
 		});
 	}
 
-	static getAgent = (agentEmail) => {
-		// get all agents ->
-		// return agents.find(agent.email === agentEmail)
+	static getAgents = () => {
+		 const promise = database.ref(AGENTS_COLLECTION_NAME).once('value').then((snap) => {
+			return snap.val() || {};
+		});	
+		 return promise;
+	}
+
+	static getCurrentAgent = (email) => {
+		return DBManager.getAgents().then(agents =>{
+			console.log('agents', agents);
+			const agentKey = Object.keys(agents).find((currentKey) => {
+				const currentAgent = agents[currentKey];
+				return email === currentAgent.email;
+			});
+			return agents[agentKey];
+		});
 	}
 
 
@@ -172,12 +182,16 @@ class DBManager {
 		  email,
 		  password
 		).then(() => {
-			database.ref('agents').push({email, fullname});
+			database.ref(AGENTS_COLLECTION_NAME).push(agent);
 		})
 		  .catch(function(error) {
 		    console.log('Error creating new user:', error.cose);
 		    console.log(error);
 		  });
+	}
+
+	static logoutUser = () => {
+		return firebase.auth().signOut();
 	}
 }
 
