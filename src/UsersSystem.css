@@ -142,22 +142,7 @@
 	top: 0;
 	right: 0px;
 }
-
-.users-system-container .log-out-button{
-	direction: ltr;
-	position: absolute;
-	top: 0px;
-	left: 0px;
-	cursor: pointer;
-	box-shadow: 0 1px 6px rgba(32,33,36,.28);
-	padding: 5px;
-	transition: transform 0.4s;
-}
-
-.users-system-container .log-out-button:hover{
-	transform: scale(1.2);
-}	
-
+	
 .users-system-container .header .hello-user-message{
 	position: absolute;
 	right: 10px;
@@ -167,6 +152,13 @@
 	position: absolute;
 	left: 10px;
 	cursor: pointer;
+	box-shadow: 0 1px 6px rgba(32,33,36,.28);
+	padding:5px;
+	transition: transform 0.4s;
+}	
+
+.users-system-container .header .logout-button:hover{
+	transform:scale(1.2);
 }	
 
 .no-users{
@@ -192,6 +184,8 @@
     transform: scale(1);
   }
 }
+
+
 
 @keyframes no-users {
   0% {

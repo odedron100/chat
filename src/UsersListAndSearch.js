@@ -11,16 +11,12 @@ class UsersListAndSearch extends Component {
 			users,
 			messages,
 			unReadMessages,
-			currentAgent,
 			valueInput
 		} = this.props;
 
-		// console.log('users', users);
 
 		return(
 			<div className="users-list">
-				{currentAgent && <div className="agent-name">{` שלום, ${currentAgent.fullName} `}</div>}
-				<div className="log-out-button" onClick={this.props.logoutUser}>התנתק</div>
 				<input 
 					className="list-input"
 					placeholder="חפש משתמשים"
