@@ -42,22 +42,10 @@ class DBManager {
 		});	
 	}
 
-	static getUser = (id) => {
-		const promise = database.ref(`${USERS_COLLECTION_NAME}/${id}`).once('value').then((snap) => {
-			const user = snap.val();
 
-			if (!user) {
-				throw new Error("User not found!");
-			}
-			return {...user, id};
-		});
-
-		return promise;
-	}
-
-	static setUsers = (users) => {
-		return database.ref(USERS_COLLECTION_NAME).set(users);
-	}
+	// static setUsers = (users) => {
+	// 	return database.ref(USERS_COLLECTION_NAME).set(users);
+	// }
 
 	static createNewUser = (user) => {
 		return database.ref(USERS_COLLECTION_NAME).push(user).then((snap) => {
@@ -70,16 +58,8 @@ class DBManager {
 
 	}
 
-// 	static getAgents = () => {
-// 		return DBManager.getFromCollection(AGENTS_COLLECTION_NAME);
-// 	}
-// 
-// 	static setAgents = (somethingToWrite) => {
-// 		DBManager.setInCollection(AGENTS_COLLECTION_NAME, somethingToWrite);
-// 	}
 
 	static registerToNewMessages = (userId, onNewMessageAdded) => {
-		// console.log('register....', `chats/${userId}/${MESSAGES_COLLECTION_NAME}`);
 		database.ref(`chats/${userId}/${MESSAGES_COLLECTION_NAME}`).on('value', (snap) => {
 			onNewMessageAdded(
 					snap.val()
@@ -96,7 +76,6 @@ class DBManager {
 	}
 
 	static getUnReadMessages = (userId, onNewMessageAdded) => {
-		// console.log('register....', `chats/${userId}/${MESSAGES_COLLECTION_NAME}`);
 		database.ref(`chats/${userId}/${UN_READ_MESSAGES}`).on('value', (snap) => {
 			onNewMessageAdded(
 					snap.val()
@@ -104,9 +83,9 @@ class DBManager {
 		});
 	}
 
-	static setIsAgentLoggedIn = (agent) =>{
-		return database.ref(AGENTS_COLLECTION_NAME).set(agent);
-	}
+	// static setIsAgentLoggedIn = (agent) =>{
+	// 	return database.ref(AGENTS_COLLECTION_NAME).set(agent);
+	// }
 	
 
 	static getIsAgentLoggedIn = (callback) => {
@@ -124,18 +103,15 @@ class DBManager {
 	static getCurrentUser = () => {
 		return DBManager.getSingleItem(CURRENT_USER);
 	}
-
-	// static getCurrentAgent = () => {
-	// 	return DBManager.getSingleItem(CURRENT_AGENT);
-	// }
+å
 
 	static setCurrentUser = (newUser) => {
 		DBManager.setSingleItem(CURRENT_USER, newUser);
 	}
 
-	static setCurrentAgent = (newAgent) => {
-		DBManager.setSingleItem(CURRENT_AGENT, newAgent);
-	}
+	// static setCurrentAgent = (newAgent) => {
+	// 	DBManager.setSingleItem(CURRENT_AGENT, newAgent);
+	// }
 
 	static loginWithEmailAndPassword = (email, password) => {
 		return firebase.auth().signInWithEmailAndPassword(
@@ -165,7 +141,6 @@ class DBManager {
 
 	static getCurrentAgent = (email) => {
 		return DBManager.getAgents().then(agents =>{
-			console.log('agents', agents);
 			const agentKey = Object.keys(agents).find((currentKey) => {
 				const currentAgent = agents[currentKey];
 				return email === currentAgent.email;
@@ -176,7 +151,7 @@ class DBManager {
 
 
 	static createNewAgentUser = (agent) => {
-		const {email, fullname, password} = agent;
+		const {email, password} = agent;
 
 		return firebase.auth().createUserWithEmailAndPassword(
 		  email,

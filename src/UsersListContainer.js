@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import DBManager from './DBManager';
 import UserItem from './UserItem';
 
 class UsersListContainer extends Component {
@@ -8,7 +7,6 @@ class UsersListContainer extends Component {
 		const {
 			users,
 			unReadMessages,
-			messages
 		} = this.props;
 			
 		// console.log('unReadMessages', unReadMessages);

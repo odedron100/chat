@@ -19,7 +19,6 @@ class LoginForm extends Component {
 	}	
 
 	login = () => {
-		console.log('login clicked!');
 		const {email, password} = this.state;
 
 		if (!password || !email ) {

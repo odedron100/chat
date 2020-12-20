@@ -85,7 +85,6 @@ class Chat extends Component {
   addNewMessage = (message) => {
     const {owner} = this.props;
   	const {messages} = this.state;
-    const {unreadMessages} = this.state;
     const time = (new Date()).toISOString();
 
     if (messages.length === 0 || this.props.isAgent) {
@@ -180,7 +179,6 @@ class Chat extends Component {
   	const {
         isChatWindowOpen,
         messages,
-        unReadMessages
     } = this.state;
     
     const onlineOrOfflineAgent = 'agent-online-or-offline ' + 

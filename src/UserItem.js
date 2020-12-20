@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 
-import DBManager from './DBManager';
 
 
 class UserItem extends Component {
 	render() {
-		const {users,
+		const {
 			index,
 			user,
 			messagesClass,
 			item,
-			unReadMessages,
 			messages
 		} = this.props;	
 

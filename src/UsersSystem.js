@@ -3,7 +3,6 @@ import {Route} from "react-router-dom";
 
 import UsersList from './UsersList';
 import DBManager from './DBManager';
-import User from './User';
 import './UsersSystem.css'
 
 class UsersSystem extends Component {
@@ -44,7 +43,6 @@ class UsersSystem extends Component {
 					{agent && <div className="logout-button" onClick={this.logoutUser}>התנתק</div>}
 				</div>
 				<Route path={`${match.path}/List`} component={UsersList}/>
-				<Route path={`${match.path}/User`} component={User}/>
 			</div>
 		);
 	}

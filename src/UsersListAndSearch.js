@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 
-import DBManager from './DBManager';
 import UsersListContainer from './UsersListContainer';
 
 
@@ -9,8 +8,6 @@ class UsersListAndSearch extends Component {
 	render() {
 		const {
 			users,
-			messages,
-			unReadMessages,
 			valueInput
 		} = this.props;
 

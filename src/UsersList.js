@@ -103,7 +103,7 @@ class UsersList extends Component {
 
 
   onUserClicked = (key) =>{
-  	const {users,messages} = this.state;
+  	const {users} = this.state;
   	const currentUser = {
   		name: users[key].name,
   		id: key
@@ -132,7 +132,7 @@ class UsersList extends Component {
 
  
 	render() {
-		const {users, isloading,valueInput,selectedUser, messages,currentAgent,unReadMessages,agents} = this.state;
+		const {isloading,selectedUser,agents} = this.state;
 		console.log('agents', agents);	
 
 		return (

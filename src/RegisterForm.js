@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 
 import DBManager from './DBManager';
-import LoginForm from './LoginForm';
 
 class RegisterForm extends Component {
 	state = {
@@ -12,7 +11,7 @@ class RegisterForm extends Component {
 		password: '',
 		passwordConfirmation: '',
 		validationError: null,
-		currentAgent:null,
+		// currentAgent:null,
 	}
 
 	componentDidMount() {
@@ -56,8 +55,8 @@ class RegisterForm extends Component {
 		}
 
 		// DBManager.setNameByEmail(email,firstName);
-		DBManager.setCurrentAgent(user);
-		this.setState({currentAgent:user});
+		// DBManager.setCurrentAgent(user);
+		// this.setState({currentAgent:user});
 
 		DBManager.createNewAgentUser(user).then(() => {
 			this.props.history.push('/agents/login');
