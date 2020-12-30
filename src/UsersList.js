@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Redirect} from "react-router-dom";
+import React, { Component } from 'react';
+import { Redirect } from "react-router-dom";
 
 import DBManager from './DBManager';
 import Loading from './Loading';
@@ -12,63 +12,63 @@ class UsersList extends Component {
 		valueInput: '',
 		isloading: false,
 		selectedUser: null,
-		messages:{},
-		unReadMessages:{},
-		agent:null,
+		messages: {},
+		unReadMessages: {},
+		agent: null,
 	}
 
 	componentDidMount() {
-			
 		DBManager.getIsAgentLoggedIn((agent) => {
-			DBManager.setOnlineAgent('online');
 			if (!agent) {
 				DBManager.setOnlineAgent(null);
 				this.props.history.push('/agents/login');
+			} else {
+				DBManager.setOnlineAgent('online');
 			}
 		})
 		this.handleWindowClose();
-		
-		this.setState({isloading: true});
-	    const onNewUserAdded = (users) =>{
-	    	this.setState({users});
-		  	this.setState({isloading: false});
-		  	this.originalUsersObject = users;
-				if (users) {
-					Object.keys(users).forEach(currentKey => {
-						this.unReadMessages(currentKey);	
-	  
-				  		const onNewMessageAdded = (messagesFromServer) => {
-		      
-		     					const messages = {
-		     						...this.state.messages,
-		     						[currentKey]:messagesFromServer || []
-		     					};
 
-		     					this.setState({messages:messages});
-		     				
-		          		}
-		     				DBManager.registerToNewMessages(currentKey,onNewMessageAdded);
-					});	
-				}
+		this.setState({ isloading: true });
+		const onNewUserAdded = (users) => {
+			this.setState({ users });
+			this.setState({ isloading: false });
+			this.originalUsersObject = users;
+			if (users) {
+				Object.keys(users).forEach(currentKey => {
+					this.unReadMessages(currentKey);
+
+					const onNewMessageAdded = (messagesFromServer) => {
+
+						const messages = {
+							...this.state.messages,
+							[currentKey]: messagesFromServer || []
+						};
+
+						this.setState({ messages: messages });
+
+					}
+					DBManager.registerToNewMessages(currentKey, onNewMessageAdded);
+				});
+			}
 		}
-		DBManager.getUsers(onNewUserAdded);			 
+		DBManager.getUsers(onNewUserAdded);
 	}
 
-	unReadMessages = (ownerId) =>{
-	const onNewMessageAdded = (newUnReadMessages) => {
-      const unReadMessages = {
-      	...this.state.unReadMessages,
-      	[ownerId]:newUnReadMessages||[]
-      };
+	unReadMessages = (ownerId) => {
+		const onNewMessageAdded = (newUnReadMessages) => {
+			const unReadMessages = {
+				...this.state.unReadMessages,
+				[ownerId]: newUnReadMessages || []
+			};
 
-      this.setState({unReadMessages: unReadMessages || []});
-      	const {selectedUser} = this.state;
-      	if (selectedUser && selectedUser.id === ownerId) {
-			this.onUserClicked(selectedUser.id);
+			this.setState({ unReadMessages: unReadMessages || [] });
+			const { selectedUser } = this.state;
+			if (selectedUser && selectedUser.id === ownerId) {
+				this.onUserClicked(selectedUser.id);
+			}
 		}
-    }	
-	    DBManager.getUnReadMessages(ownerId, onNewMessageAdded);
-	    	
+		DBManager.getUnReadMessages(ownerId, onNewMessageAdded);
+
 	}
 
 	// numberOfUnreadMessages = () =>{
@@ -80,8 +80,8 @@ class UsersList extends Component {
 	// 	});	
 	// }
 
-	 handleChange = (e) => {
-		this.setState({valueInput: e.target.value});
+	handleChange = (e) => {
+		this.setState({ valueInput: e.target.value });
 
 		if (this.state.users) {
 			const filteredUsersKeysArray = Object.keys(this.originalUsersObject).filter((key, index) => {
@@ -97,52 +97,51 @@ class UsersList extends Component {
 				filteredUsersAsObject[currentKey] = item;
 			});
 
-			this.setState({users: filteredUsersAsObject});
+			this.setState({ users: filteredUsersAsObject });
 		}
-  }
+	}
 
 
-  onUserClicked = (key) =>{
-  	const {users} = this.state;
-  	const currentUser = {
-  		name: users[key].name,
-  		id: key
-  	};
+	onUserClicked = (key) => {
+		const { users } = this.state;
+		const currentUser = {
+			name: users[key].name,
+			id: key
+		};
 
-  	this.setState({selectedUser: null}, () => {
-      this.setState({selectedUser:currentUser})
-    });
-    
-    DBManager.setUnReadMessages(key,[]);    	
-  }
+		this.setState({ selectedUser: null }, () => {
+			this.setState({ selectedUser: currentUser })
+		});
 
- 
-
-  handleWindowClose = () => {
-  	  window.addEventListener("beforeunload", (ev) => {
-        ev.preventDefault();
-        return this.doSomethingBeforeUnload();
-      });
-  }
+		DBManager.setUnReadMessages(key, []);
+	}
 
 
-  doSomethingBeforeUnload = () =>{
-  	DBManager.setOnlineAgent('busy');
-  }
 
- 
+	handleWindowClose = () => {
+		window.addEventListener("beforeunload", (ev) => {
+			ev.preventDefault();
+			return this.doSomethingBeforeUnload();
+		});
+	}
+
+
+	doSomethingBeforeUnload = () => {
+		DBManager.setOnlineAgent('busy');
+	}
+
+
 	render() {
-		const {isloading,selectedUser,agents} = this.state;
-		console.log('agents', agents);	
+		const { isloading, selectedUser } = this.state;
 
 		return (
 			<div className="listUsers-container">
 				{isloading ?
 					<Loading text="טוען משתמשים..." />
 					:
-					<>					
+					<>
 						<UsersListAndSearch users={this.state.users} unReadMessages={this.state.unReadMessages} messages={this.state.messages} valueInput={this.state.valueInput}
-						 currentAgent={this.state.currentAgent} onUserClicked={this.onUserClicked} handleChange={this.handleChange} 
+							currentAgent={this.state.currentAgent} onUserClicked={this.onUserClicked} handleChange={this.handleChange}
 						/>
 						{selectedUser && <Chat owner={selectedUser} isAgent={true} messages={this.state.messages} currentOnlineAgent={true} shouldStartOpen={true} />}
 					</>

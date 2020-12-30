@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 import DBManager from './DBManager';
 
@@ -16,11 +16,11 @@ class RegisterForm extends Component {
 
 	componentDidMount() {
 		window.addEventListener('keydown', (e) => {
-		  if (e.keyCode === 13) {
-		  	this.createNewAccount();
-		  }
+			if (e.keyCode === 13) {
+				this.createNewAccount();
+			}
 		});
-	}	
+	}
 
 
 	createNewAccount = () => {
@@ -33,19 +33,19 @@ class RegisterForm extends Component {
 		} = this.state;
 
 		if (!firstName || !lastName || !email || !password || !passwordConfirmation) {
-			return this.setState({validationError: 'יש למלא את כל השדות!'});
+			return this.setState({ validationError: 'יש למלא את כל השדות!' });
 		}
 
 		if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
-			return this.setState({validationError: 'יש להזין כתובת מייל תקינה!'});
+			return this.setState({ validationError: 'יש להזין כתובת מייל תקינה!' });
 		}
 
 		if (password !== passwordConfirmation) {
-			return this.setState({validationError: 'הסיסמאות לא תואמות!'});
+			return this.setState({ validationError: 'הסיסמאות לא תואמות!' });
 		}
 
 		if (password.length < 6) {
-			return this.setState({validationError: 'סיסמא צריכה להיות בת 6 ספרות'})
+			return this.setState({ validationError: 'סיסמא צריכה להיות בת 6 ספרות' })
 		}
 
 		const user = {
@@ -61,22 +61,22 @@ class RegisterForm extends Component {
 		DBManager.createNewAgentUser(user).then(() => {
 			this.props.history.push('/agents/login');
 		})
-		.catch((error) => {
+			.catch((error) => {
 				console.log('erorrrrrrr');
 			});
 	}
 
 	createHandleFieldChange = (fieldName) => {
 		return (e) => {
-			this.setState({[fieldName]: e.target.value});
+			this.setState({ [fieldName]: e.target.value });
 		}
 	}
- 
+
 	render() {
 		// console.log('this.state.currentAgent', this.state.currentAgent);
 		return (
 			<div className="form-container">
-			<div className="title">צור משתמש חדש</div>
+				<div className="title">צור משתמש חדש</div>
 				<div className="form">
 					{this.state.validationError && <div className="error-message">{this.state.validationError}</div>}
 					<input onChange={this.createHandleFieldChange('firstName')} className="name-input input" type="text" placeholder="שם פרטי" />
@@ -86,7 +86,7 @@ class RegisterForm extends Component {
 					<input onChange={this.createHandleFieldChange('passwordConfirmation')} className="confirm-password-input input" type="password" placeholder="אימות סיסמא" />
 					<div className="submit-button" onClick={this.createNewAccount}> סיימתי, צור משתמש!</div>
 					<Link to="/agents/login">
-					<div id="login-button" className="secondary-button"> אני כבר רשום </div>
+						<div id="login-button" className="secondary-button"> אני כבר רשום </div>
 					</Link>
 				</div>
 			</div>

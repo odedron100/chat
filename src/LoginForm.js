@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import React, { Component } from 'react';
+import { Link } from "react-router-dom";
 
 import DBManager from './DBManager';
 
@@ -12,17 +12,17 @@ class LoginForm extends Component {
 
 	componentDidMount() {
 		window.addEventListener('keydown', (e) => {
-		  if (e.keyCode === 13) {
-		  	this.login();
-		  }
+			if (e.keyCode === 13) {
+				this.login();
+			}
 		});
-	}	
+	}
 
 	login = () => {
-		const {email, password} = this.state;
+		const { email, password } = this.state;
 
-		if (!password || !email ) {
-			this.setState({validationError:'אנא ודא כי כל השדות מלאים'});
+		if (!password || !email) {
+			this.setState({ validationError: 'אנא ודא כי כל השדות מלאים' });
 		}
 
 		DBManager.loginWithEmailAndPassword(email, password)
@@ -31,13 +31,13 @@ class LoginForm extends Component {
 				DBManager.setOnlineAgent(email);
 			})
 			.catch(() => {
-				this.setState({validationError:'נסה שוב'});
+				this.setState({ validationError: 'נסה שוב' });
 			});
 	}
 
 	createHandleFieldChange = (fieldName) => {
 		return (e) => {
-			this.setState({[fieldName]: e.target.value});
+			this.setState({ [fieldName]: e.target.value });
 		}
 	}
 

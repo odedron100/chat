@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {Route} from "react-router-dom";
+import React, { Component } from 'react';
+import { Route } from "react-router-dom";
 
 import UsersList from './UsersList';
 import DBManager from './DBManager';
@@ -12,28 +12,28 @@ class UsersSystem extends Component {
 
 	componentDidMount() {
 		DBManager.getIsAgentLoggedIn((user) => {
-			const {email} = user;
+			const { email } = user;
 
 			DBManager.getCurrentAgent(email).then(currentAgent => {
-				this.setState({agent: currentAgent})
+				this.setState({ agent: currentAgent })
 			});
 		})
 	}
 
 	logoutUser = () => {
- 		DBManager.logoutUser().then(() => {
- 			DBManager.getIsAgentLoggedIn((user) => {
- 				if (!user) {
- 					this.setState({agent: null});
- 					this.props.history.push('/agents/login');
- 				}
+		DBManager.logoutUser().then(() => {
+			DBManager.getIsAgentLoggedIn((user) => {
+				if (!user) {
+					this.setState({ agent: null });
+					this.props.history.push('/agents/login');
+				}
 			})
- 		});
+		});
 	}
 
 	render() {
-		const {match} = this.props;
-		const {agent} = this.state;
+		const { match } = this.props;
+		const { agent } = this.state;
 
 		return (
 			<div className="users-system-container">
@@ -42,7 +42,7 @@ class UsersSystem extends Component {
 					<span>מערכת לניהול משתמשים</span>
 					{agent && <div className="logout-button" onClick={this.logoutUser}>התנתק</div>}
 				</div>
-				<Route path={`${match.path}/List`} component={UsersList}/>
+				<Route path={`${match.path}/List`} component={UsersList} />
 			</div>
 		);
 	}

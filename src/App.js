@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -26,7 +26,7 @@ class App extends Component {
         </Router>
       </div>
     );
-  } 
+  }
 }
 
 export default App;
